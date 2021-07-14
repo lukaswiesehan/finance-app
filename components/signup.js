@@ -63,6 +63,11 @@ export const SignUp = () => {
     return emailSuccess && passwordSuccess
   }
 
+  const clearForm = () => {
+    emailRef.current.value = ''
+    passwordRef.current.value = ''
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     if(validateAll()) {
@@ -75,6 +80,7 @@ export const SignUp = () => {
         setFormState({state: 'error', message: 'Bei der Registrierung ist etwas schief gelaufen. Bitte versuche es später nochmal.'})
       } else {
         setFormState({state: 'success', message: 'Schließe die Registrierung über den Link ab, den wir an Deine Email-Adresse gesendet haben.'})
+        clearForm()
       }
     }
   }

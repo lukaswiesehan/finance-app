@@ -28,6 +28,10 @@ export const ResetPassword = () => {
     }
   }
 
+  const clearForm = () => {
+    emailRef.current.value = ''
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     if(validateEmail()) {
@@ -37,6 +41,7 @@ export const ResetPassword = () => {
         setFormState({state: 'error', message: 'Die eingegebene Email-Adresse scheint nicht korrekt zu sein.'})
       } else {
         setFormState({state: 'success', message: 'Wir haben Dir eine Email zum Zurücksetzen des Passworts geschickt.'})
+        clearForm()
       }
     }
   }
