@@ -96,11 +96,11 @@ export const SignUp = () => {
             {passwordStrength &&
               <div>
                 <div className="w-full h-2 p-0.5 bg-gray-100 rounded-xl mb-1">
-                  {passwordStrength == 'Stark' && <div className="rounded-xl h-1 w-full bg-green-400"/>}
-                  {passwordStrength == 'Okay' && <div className="rounded-xl h-1 w-1/2 bg-orange-400"/>}
-                  {passwordStrength == 'Schwach' && <div className="rounded-xl h-1 w-1/4 bg-red-400"/>}
+                  {passwordStrength == 'Stark' && <div className="rounded-xl h-1 w-full bg-green-500"/>}
+                  {passwordStrength == 'Okay' && <div className="rounded-xl h-1 w-1/2 bg-orange-500"/>}
+                  {passwordStrength == 'Schwach' && <div className="rounded-xl h-1 w-1/4 bg-red-500"/>}
                 </div>
-                <p className={`text-sm ${passwordStrength == 'Stark' ? 'text-green-400' : passwordStrength == 'Okay' ? 'text-orange-400' : 'text-red-400'}`}>{passwordStrength}</p>
+                <p className={`text-sm ${passwordStrength == 'Stark' ? 'text-green-500' : passwordStrength == 'Okay' ? 'text-orange-500' : 'text-red-500'}`}>{passwordStrength}</p>
               </div>
             }
           </div>
