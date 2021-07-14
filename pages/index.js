@@ -15,7 +15,6 @@ export const IndexPage = () => {
   const supabase = useSupabase()
 
   useEffect(() => {
-    console.log(router.query)
     if(supabase.auth.user()) {
       router.push('/dashboard')
     }
@@ -32,7 +31,6 @@ export const IndexPage = () => {
           <CardBottom> 
             <p><ChevronLink href="/login" external={false}>Zum Login</ChevronLink></p>
             <p><ChevronLink href="/signup" external={false}>Zur Registrierung</ChevronLink></p>
-            <p>{router.query}</p>
           </CardBottom>
         </Card>
       </BlankCanvas>
