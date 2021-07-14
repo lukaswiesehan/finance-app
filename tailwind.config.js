@@ -17,7 +17,15 @@ module.exports = {
       current: 'currentColor',
       white: colors.white,
       gray: colors.coolGray,
-      red: colors.red
+      red: colors.red,
+      green: colors.emerald,
+      orange: colors.orange,
+      teal: colors.teal,
+      rose: colors.rose,
+      sky: colors.sky,
+      yellow: colors.yellow,
+      lime: colors.lime,
+      'blue-gray': colors.blueGray
     },
     extend: {},
   },

@@ -1,8 +1,7 @@
 import Head from 'next/head'
 import {useRouter} from 'next/router'
-import {SupabaseProvider} from '@/lib/supabase'
 
-export const Container = ({children, ...customMeta}) => {
+export const Container = ({children, requiresAuth, ...customMeta}) => {
   const router = useRouter()
   const meta = {
     title: 'Finance App',
@@ -21,7 +20,7 @@ export const Container = ({children, ...customMeta}) => {
   }
 
   return (
-    <div className="w-full max-w-screen-lg px-4 lg:px-0 mt-8 lg:mt-32 lg:mx-auto lg:flex lg:justify-between">
+    <div>
       <Head>
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index"/>
@@ -40,11 +39,9 @@ export const Container = ({children, ...customMeta}) => {
         <link rel="icon" href="/favicon.ico"/>
         <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}/>
       </Head>
-      <SupabaseProvider>
-        <main>
-          {children}
-        </main>
-      </SupabaseProvider>
+      <main>
+        {children}
+      </main>
     </div>
   )
 }

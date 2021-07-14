@@ -1,7 +1,26 @@
-import '../styles/globals.css'
+import {useEffect} from 'react'
+import {createClient} from '@supabase/supabase-js'
+import {useRouter} from 'next/router'
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+import '../styles/globals.css'
+import {SupabaseProvider} from '@/lib/supabase'
+
+export const MyApp = ({Component, pageProps}) => {
+  const router = useRouter()
+  const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_KEY)
+  const publicRoutes = ['/', '/login', '/signup', '/reset-password']
+
+  useEffect(() => {
+    if(!supabase.auth.user() && !publicRoutes.includes(router.pathname)) {
+      router.push('/')
+    }
+  }, [])
+
+  return (
+    <SupabaseProvider value={supabase}>
+      <Component {...pageProps} />
+    </SupabaseProvider>
+  )
 }
 
 export default MyApp
