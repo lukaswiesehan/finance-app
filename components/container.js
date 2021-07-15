@@ -39,9 +39,9 @@ export const Container = ({children, requiresAuth, ...customMeta}) => {
         <link rel="icon" href="/favicon.ico"/>
         <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}/>
       </Head>
-      <main>
+      <div>
         {children}
-      </main>
+      </div>
     </div>
   )
 }

@@ -47,11 +47,6 @@ export const Login = () => {
     return emailSuccess && passwordSuccess
   }
 
-  const clearForm = () => {
-    emailRef.current.value = ''
-    passwordRef.current.value = ''
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     if(validateAll()) {
@@ -64,7 +59,6 @@ export const Login = () => {
         setFormState({state: 'error', message: 'Deine Email-Adresse oder das Passwort ist nicht korrekt.'})
       } else {
         setFormState({state: 'success', message: ''})
-        clearForm()
         router.push('/dashboard')
       }
     }

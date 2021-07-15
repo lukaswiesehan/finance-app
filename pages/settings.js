@@ -6,7 +6,7 @@ export const DashboardPage = () => {
   return (
     <Container>
       <AppCanvas>
-        <Title>Dashboard</Title>
+        <Title>Einstellungen</Title>
         <div className="h-screen"></div>
       </AppCanvas>
     </Container>
