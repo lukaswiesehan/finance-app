@@ -1,4 +1,5 @@
 import {NavMenu} from '@/components/layout/nav-menu'
+import {ThemeButton} from '@/components/elements/theme-button'
 import {SignOutButton} from '@/components/elements/signout-button'
 import {FooterMenu} from '@/components/layout/footer-menu'
 
@@ -9,7 +10,8 @@ export const AppCanvas = ({children}) => {
         <div className="mt-24 pt-8 sticky top-0">
           <NavMenu/>
         </div>
-        <div className="mb-24 pb-8 sticky bottom-0">
+        <div className="mb-24 pb-8 sticky bottom-0 flex space-x-2">
+          <ThemeButton/>
           <SignOutButton/>
         </div>
       </div>

@@ -21,11 +21,8 @@ export const SignOutButton = () => {
   }
 
   return (
-    <button onClick={logout} className="flex flex-col items-center">
-      <div className="w-14 h-14 flex justify-center items-center rounded-xl text-white text-3xl bg-gradient-to-br from-pink-400 to-rose-500 border border-rose-500 ring-2 ring-offset-2 ring-offset-gray-100 ring-transparent hover:ring-gray-300">
-        <FontAwesomeIcon icon={faSignOutAlt}/>
-      </div>
-      <span className="block mt-2 text-xs text-gray-500">Abmelden</span>
+    <button onClick={logout} className="w-6 h-6 flex justify-center items-center rounded-md text-white  bg-gradient-to-br from-pink-400 to-rose-500 border border-rose-500 ring-2 ring-offset-2 ring-offset-gray-100 ring-transparent hover:ring-gray-300">
+      <FontAwesomeIcon icon={faSignOutAlt} className="text-sm"/>
     </button>
   )
 }
