@@ -1,12 +1,12 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faTimes, faCheck} from '@fortawesome/pro-solid-svg-icons'
+import {faTimes, faInfo} from '@fortawesome/pro-solid-svg-icons'
 
 export const InfoMessage = ({heading, text, handleClose}) => {
   return (
-    <div className="group flex space-x-3 justify-between items-start bg-gradient-to-br from-blue-gray-200 to-true-gray-300 text-blue-gray-700 border border-true-gray-300 p-4 rounded-xl shadow-lg">
+    <div className="group flex space-x-3 justify-between items-start bg-gradient-to-br from-blue-gray-200 to-true-gray-300 text-blue-gray-700 border border-true-gray-300 p-4 rounded-xl shadow-md">
       <div className="flex space-x-3">
         <div className="flex-shrink-0 w-5 h-5 flex justify-center items-center bg-true-gray-500 bg-opacity-30 rounded-full">
-          <FontAwesomeIcon icon={faCheck} className="block text-xs"/>
+          <FontAwesomeIcon icon={faInfo} className="block text-xs"/>
         </div>
         <div className="text-sm space-y-2">
           {heading && 

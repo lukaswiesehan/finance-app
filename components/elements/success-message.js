@@ -3,7 +3,7 @@ import {faTimes, faCheck} from '@fortawesome/pro-solid-svg-icons'
 
 export const SuccessMessage = ({heading, text, handleClose}) => {
   return (
-    <div className="group flex space-x-3 justify-between items-start bg-gradient-to-br from-green-200 to-emerald-300 text-emerald-800 border border-emerald-300 p-4 rounded-xl shadow-lg">
+    <div className="group flex space-x-3 justify-between items-start bg-gradient-to-br from-green-200 to-emerald-300 text-emerald-800 border border-emerald-300 p-4 rounded-xl shadow-md">
       <div className="flex space-x-3">
         <div className="flex-shrink-0 w-5 h-5 flex justify-center items-center bg-emerald-600 bg-opacity-30 rounded-full">
           <FontAwesomeIcon icon={faCheck} className="block text-xs"/>

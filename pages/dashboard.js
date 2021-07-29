@@ -15,7 +15,8 @@ export const DashboardPage = () => {
             showNotification({
               type: 'success',
               heading: 'Test-Nachricht',
-              text: 'Das hier ist eine mittellange Test-Nachricht, die beim Layouten der Notifications helfen soll.'
+              text: 'Das hier ist eine mittellange Test-Nachricht, die beim Layouten der Notifications helfen soll.',
+              autoRemove: true
             })
           }}
           >
@@ -25,7 +26,8 @@ export const DashboardPage = () => {
             showNotification({
               type: 'error',
               heading: 'Test-Nachricht',
-              text: 'Das hier ist eine mittellange Test-Nachricht, die beim Layouten der Notifications helfen soll.'
+              text: 'Das hier ist eine mittellange Test-Nachricht, die beim Layouten der Notifications helfen soll.',
+              autoRemove: false
             })
           }}
           >
@@ -35,7 +37,8 @@ export const DashboardPage = () => {
             showNotification({
               type: 'info',
               heading: 'Test-Nachricht',
-              text: 'Das hier ist eine mittellange Test-Nachricht, die beim Layouten der Notifications helfen soll.'
+              text: 'Das hier ist eine mittellange Test-Nachricht, die beim Layouten der Notifications helfen soll.',
+              autoRemove: true
             })
           }}
           >

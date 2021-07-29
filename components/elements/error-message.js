@@ -3,7 +3,7 @@ import {faTimes, faExclamation} from '@fortawesome/pro-solid-svg-icons'
 
 export const ErrorMessage = ({heading, text, handleClose}) => {
   return (
-    <div className="group flex space-x-3 justify-between items-start bg-gradient-to-br from-rose-200 to-red-300 text-red-800 border border-red-300 p-4 rounded-xl shadow-lg">
+    <div className="group flex space-x-3 justify-between items-start bg-gradient-to-br from-rose-200 to-red-300 text-red-800 border border-red-300 p-4 rounded-xl shadow-md">
       <div className="flex space-x-3">
         <div className="flex-shrink-0 w-5 h-5 flex justify-center items-center bg-red-600 bg-opacity-30 rounded-full">
           <FontAwesomeIcon icon={faExclamation} className="block text-xs"/>
