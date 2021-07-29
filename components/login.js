@@ -66,18 +66,18 @@ export const Login = () => {
 
   return (
     <Card>
-      <CardMain>
+      <CardMain spacing="12">
         <h1><Heading>Anmelden</Heading></h1>
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="space-y-4">
             <Input type="email" id="email" label="Deine Email-Adresse" placeholder="john.doe@email.com" required={true} onBlur={validateEmail} error={emailError} ref={emailRef}/>
             <Input type="password" id="password" label="Dein Passwort" placeholder="Passwort" required={true} onBlur={validatePassword} error={passwordError} ref={passwordRef}/>
           </div>
-          <Submit label="Anmelden" loading={formState.state == 'loading'}/>
-          {formState.state == 'error' && <div className="mb-4"><ErrorMessage>{formState.message}</ErrorMessage></div>}
+          <Submit label="Anmelden" loading={formState.state == 'loading'} className="w-full"/>
+          {formState.state == 'error' && <div className="mb-4"><ErrorMessage text={formState.message}/></div>}
         </form>
       </CardMain>
-      <CardBottom>
+      <CardBottom spacing="12">
         <p><ChevronLink href="/reset-password" external={false}>Passwort zurücksetzen</ChevronLink></p>
         <p><ChevronLink href="/signup" external={false}>Registrieren</ChevronLink></p>
       </CardBottom>

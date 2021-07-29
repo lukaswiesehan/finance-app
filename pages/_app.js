@@ -3,6 +3,7 @@ import {createClient} from '@supabase/supabase-js'
 import {useRouter} from 'next/router'
 
 import '../styles/globals.css'
+import {NotificationProvider} from '@/lib/notifications'
 import {SupabaseProvider} from '@/lib/supabase'
 
 export const MyApp = ({Component, pageProps}) => {
@@ -18,7 +19,9 @@ export const MyApp = ({Component, pageProps}) => {
 
   return (
     <SupabaseProvider value={supabase}>
-      <Component {...pageProps} />
+      <NotificationProvider>
+        <Component {...pageProps}/>
+      </NotificationProvider>
     </SupabaseProvider>
   )
 }

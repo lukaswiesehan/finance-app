@@ -4,7 +4,7 @@ import {FooterMenu} from '@/components/layout/footer-menu'
 
 export const AppCanvas = ({children}) => {
   return (
-    <div className="flex">
+    <div className="flex bg-gray-100">
       <div className="relative w-24 flex-shrink-0 flex flex-col justify-between items-center">
         <div className="mt-24 pt-12 sticky top-0">
           <NavMenu/>
@@ -15,7 +15,7 @@ export const AppCanvas = ({children}) => {
       </div>
       <div className="flex-grow">
         <header className="h-24 w-full"></header>
-        <main className="w-full p-12 rounded-l-3xl bg-white">
+        <main className="w-full p-12 rounded-l-3xl bg-white border border-gray-200 space-y-16">
           {children}
         </main>
         <FooterMenu/>

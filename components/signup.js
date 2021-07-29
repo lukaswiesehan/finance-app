@@ -6,6 +6,7 @@ import {CardMain} from '@/components/layout/card-main'
 import {CardBottom} from '@/components/layout/card-bottom'
 import {Heading} from '@/components/elements/heading'
 import {Input} from '@/components/forms/input'
+import {PasswordStrength} from '@/components/forms/password-strength'
 import {Submit} from '@/components/forms/submit'
 import {ErrorMessage} from '@/components/elements/error-message'
 import {SuccessMessage} from '@/components/elements/success-message'
@@ -87,29 +88,20 @@ export const SignUp = () => {
 
   return (
     <Card>
-      <CardMain>
+      <CardMain spacing="12">
         <h1><Heading>Registrieren</Heading></h1>
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="space-y-4">
             <Input type="email" id="email" label="Deine Email-Adresse" placeholder="john.doe@email.com" required={true} onBlur={validateEmail} error={emailError} ref={emailRef}/>
             <Input type="password" id="password" label="Dein Passwort" placeholder="Passwort" required={true} onBlur={validatePassword} error={passwordError} ref={passwordRef}/>
-            {passwordStrength &&
-              <div>
-                <div className="w-full h-2 p-0.5 bg-gray-100 rounded-xl mb-1">
-                  {passwordStrength == 'Stark' && <div className="rounded-xl h-1 w-full bg-green-500"/>}
-                  {passwordStrength == 'Okay' && <div className="rounded-xl h-1 w-1/2 bg-orange-500"/>}
-                  {passwordStrength == 'Schwach' && <div className="rounded-xl h-1 w-1/4 bg-red-500"/>}
-                </div>
-                <p className={`text-sm ${passwordStrength == 'Stark' ? 'text-green-500' : passwordStrength == 'Okay' ? 'text-orange-500' : 'text-red-500'}`}>{passwordStrength}</p>
-              </div>
-            }
+            {passwordStrength && <PasswordStrength strength={passwordStrength}/>}
           </div>
-          <Submit label="Registrieren" loading={formState.state == 'loading'}/>
-          {formState.state == 'error' && <div className="mb-4"><ErrorMessage>{formState.message}</ErrorMessage></div>}
-        {formState.state == 'success' && <div className="mb-4"><SuccessMessage>{formState.message}</SuccessMessage></div>}
+          <Submit label="Registrieren" loading={formState.state == 'loading'} className="w-full"/>
+          {formState.state == 'error' && <div className="mb-4"><ErrorMessage text={formState.message}/></div>}
+          {formState.state == 'success' && <div className="mb-4"><SuccessMessage text={formState.message}/></div>}
         </form>
       </CardMain>
-      <CardBottom>
+      <CardBottom spacing="12">
         <p><ChevronLink href="/login" external={false}>Anmelden</ChevronLink></p>
       </CardBottom>
     </Card>

@@ -9,11 +9,11 @@ export const NavMenu = () => {
   const navElements = [
     {name: 'Dashboard', iconDuotone: faRocketLaunchDuotone, iconLight: faRocketLaunchLight, href: '/dashboard'},
     {name: 'Kunden', iconDuotone: faUserFriendsDuotone, iconLight: faUserFriendsLight, href: '/customers'},
-    {name: 'Einstellungen', iconDuotone: faCogsDuotone, iconLight: faCogsLight, href: '/settings'}
+    {name: 'Einstellungen', iconDuotone: faCogsDuotone, iconLight: faCogsLight, href: '/settings/general'}
   ]
 
   return (
-    <nav className="w-24 flex-shrink-0">
+    <nav className="w-32 flex-shrink-0">
       <ul className="w-full flex flex-col space-y-10">
         {navElements.map(({name, iconDuotone, iconLight, href}, index) => (
           <li key={index} className="w-full"><NavLink name={name} href={href} iconDuotone={iconDuotone} iconLight={iconLight} active={router.pathname == href}/></li>
