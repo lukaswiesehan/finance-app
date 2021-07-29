@@ -27,7 +27,8 @@ module.exports = {
       indigo: colors.indigo,
       'blue-gray': colors.blueGray,
       'true-gray': colors.trueGray,
-      blue: colors.blue
+      blue: colors.blue,
+      pink: colors.pink,
 
     },
     extend: {},
