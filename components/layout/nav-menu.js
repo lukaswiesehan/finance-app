@@ -14,7 +14,7 @@ export const NavMenu = () => {
 
   return (
     <nav className="w-32 flex-shrink-0">
-      <ul className="w-full flex flex-col items-center space-y-8">
+      <ul className="w-full flex flex-col items-center space-y-4">
         {navElements.map(({name, icon, bgClassName, href}, index) => (
           <li key={index}><NavLink name={name} href={href} icon={icon} bgClassName={bgClassName} active={router.pathname == href}/></li>
         ))}

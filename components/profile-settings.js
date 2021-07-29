@@ -216,7 +216,7 @@ export const ProfileSettings = ({session}) => {
       <FormCard 
         heading="Persönliche Informationen" 
         description="Lorem ipsum dolor sit amet."
-        columns="2"
+        gridClassName="grid-cols-2"
         submitLabel="Speichern"
         onSubmit={updateProfile}
         loading={profileFormLoading}
@@ -227,7 +227,7 @@ export const ProfileSettings = ({session}) => {
       <FormCard 
         heading="Email-Adresse" 
         description="Lorem ipsum dolor sit amet."
-        columns="2"
+        gridClassName="grid-cols-2"
         submitLabel="Speichern"
         onSubmit={updateEmail}
         loading={emailFormLoading}
@@ -239,7 +239,7 @@ export const ProfileSettings = ({session}) => {
       <FormCard 
         heading="Passwort" 
         description="Lorem ipsum dolor sit amet."
-        columns="2"
+        gridClassName="grid-cols-2"
         submitLabel="Passwort ändern"
         onSubmit={updatePassword}
         loading={passwordFormLoading}

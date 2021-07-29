@@ -18,13 +18,15 @@ module.exports = {
       white: colors.white,
       gray: colors.warmGray,
       red: colors.red,
+      rose: colors.rose,
       green: colors.green,
       emerald: colors.emerald,
       cyan: colors.cyan,
       sky: colors.sky,
       purple: colors.purple,
       indigo: colors.indigo,
-      'blue-gray': colors.blueGray
+      'blue-gray': colors.blueGray,
+      blue: colors.blue
 
     },
     extend: {},
