@@ -3,9 +3,9 @@ import {faTimes, faCheck} from '@fortawesome/pro-solid-svg-icons'
 
 export const SuccessMessage = ({heading, text, handleClose}) => {
   return (
-    <div className="group flex space-x-3 justify-between items-start text-green-600 border border-green-200 bg-green-100 p-4 rounded-lg shadow">
+    <div className="group flex space-x-3 justify-between items-start text-emerald-600 border border-emerald-200 bg-emerald-100 p-4 rounded-lg shadow">
       <div className="flex space-x-3">
-        <div className="flex-shrink-0 w-5 h-5 flex justify-center items-center bg-green-600 bg-opacity-25 rounded-full">
+        <div className="flex-shrink-0 w-5 h-5 flex justify-center items-center bg-emerald-600 bg-opacity-25 rounded-full">
           <FontAwesomeIcon icon={faCheck} className="block text-xs"/>
         </div>
         <div className="text-sm space-y-2">
@@ -16,7 +16,7 @@ export const SuccessMessage = ({heading, text, handleClose}) => {
         </div>
       </div>
       {handleClose && 
-        <button onClick={handleClose} className="flex-shrink-0 w-5 h-5 rounded flex justify-center items-center hover:bg-green-600 hover:bg-opacity-25 opacity-0 transition-opacity duration-150 ease-in-out group-hover:opacity-100 focus:outline-none">
+        <button onClick={handleClose} className="flex-shrink-0 w-5 h-5 rounded flex justify-center items-center hover:bg-emerald-600 hover:bg-opacity-25 opacity-0 transition-opacity duration-150 ease-in-out group-hover:opacity-100 focus:outline-none">
           <FontAwesomeIcon icon={faTimes} className="block text-sm"/>
         </button>
       }

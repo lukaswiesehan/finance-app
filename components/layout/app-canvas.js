@@ -5,11 +5,11 @@ import {FooterMenu} from '@/components/layout/footer-menu'
 export const AppCanvas = ({children}) => {
   return (
     <div className="flex bg-gray-100">
-      <div className="relative w-24 flex-shrink-0 flex flex-col justify-between items-center">
-        <div className="mt-24 pt-12 sticky top-0">
+      <div className="relative w-32 flex-shrink-0 flex flex-col justify-between items-center">
+        <div className="mt-24 pt-8 sticky top-0">
           <NavMenu/>
         </div>
-        <div className="mb-24 pb-12 sticky bottom-0">
+        <div className="mb-24 pb-8 sticky bottom-0">
           <SignOutButton/>
         </div>
       </div>

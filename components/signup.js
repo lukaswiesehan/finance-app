@@ -88,7 +88,7 @@ export const SignUp = () => {
 
   return (
     <Card>
-      <CardMain spacing="12">
+      <CardMain className="p-12 space-y-12">
         <h1><Heading>Registrieren</Heading></h1>
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="space-y-4">
@@ -101,7 +101,7 @@ export const SignUp = () => {
           {formState.state == 'success' && <div className="mb-4"><SuccessMessage text={formState.message}/></div>}
         </form>
       </CardMain>
-      <CardBottom spacing="12">
+      <CardBottom className="px-12 py-6">
         <p><ChevronLink href="/login" external={false}>Anmelden</ChevronLink></p>
       </CardBottom>
     </Card>

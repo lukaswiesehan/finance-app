@@ -14,7 +14,7 @@ export const FormCard = ({heading, description, columns, submitLabel, onSubmit, 
   return (
     <Card>
       <form onSubmit={onSubmit}>
-        <CardMain spacing="6">
+        <CardMain className="p-6 space-y-6">
           {collapsable ? 
             <div onClick={() => {setCollapsed(!collapsed)}} className="group w-full text-left flex justify-between items-center focus:outline-none cursor-pointer" tabIndex="0">
               <div>
@@ -36,7 +36,7 @@ export const FormCard = ({heading, description, columns, submitLabel, onSubmit, 
           </div>
         </CardMain>
         <div hidden={collapsable && collapsed}>
-          <CardBottom spacing="6" hidden={collapsable && collapsed}>
+          <CardBottom className="px-6 py-3" hidden={collapsable && collapsed}>
             <div className="w-full flex justify-end">
               <Submit label={submitLabel} loading={loading}/>
             </div>

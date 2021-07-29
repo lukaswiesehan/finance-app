@@ -66,7 +66,7 @@ export const Login = () => {
 
   return (
     <Card>
-      <CardMain spacing="12">
+      <CardMain className="p-12 space-y-12">
         <h1><Heading>Anmelden</Heading></h1>
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="space-y-4">
@@ -77,7 +77,7 @@ export const Login = () => {
           {formState.state == 'error' && <div className="mb-4"><ErrorMessage text={formState.message}/></div>}
         </form>
       </CardMain>
-      <CardBottom spacing="12">
+      <CardBottom className="px-12 py-6">
         <p><ChevronLink href="/reset-password" external={false}>Passwort zurücksetzen</ChevronLink></p>
         <p><ChevronLink href="/signup" external={false}>Registrieren</ChevronLink></p>
       </CardBottom>

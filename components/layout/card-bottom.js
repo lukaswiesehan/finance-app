@@ -1,6 +1,6 @@
-export const CardBottom = ({children, spacing, hidden}) => {
+export const CardBottom = ({children, className, hidden}) => {
   return (
-    <div className={`bg-gray-100 border-t border-gray-200 px-${spacing} py-${spacing / 2}`} hidden={hidden}>
+    <div className={`bg-gray-100 border-t border-gray-200 ${className}`} hidden={hidden}>
       {children}
     </div>
   )

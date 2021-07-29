@@ -1,6 +1,6 @@
-export const CardMain = ({children, spacing}) => {
+export const CardMain = ({children, className}) => {
   return (
-    <div className={`p-${spacing} space-y-${spacing}`}>
+    <div className={`${className}`}>
       {children}
     </div>
   )
