@@ -2,13 +2,13 @@ import {useState} from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faChevronCircleDown} from '@fortawesome/pro-duotone-svg-icons'
 
-import {Card} from '@/components/layout/card'
-import {CardMain} from '@/components/layout/card-main'
-import {CardBottom} from '@/components/layout/card-bottom'
-import {Subheading} from '@/components/elements/subheading'
-import {Submit} from '@/components/forms/submit'
+import {Card} from '@/components/common/layout/card'
+import {CardMain} from '@/components/common/layout/card-main'
+import {CardBottom} from '@/components/common/layout/card-bottom'
+import {Subheading} from '@/components/common/elements/subheading'
+import {Submit} from '@/components/common/forms/submit'
 
-export const FormCard = ({heading, description, gridClassName, submitLabel, onSubmit, loading, collapsable, children}) => {
+export const FormCard = ({heading, description, submitLabel, onSubmit, loading, collapsable, children}) => {
   const [collapsed, setCollapsed] = useState(true)
 
   return (
@@ -30,7 +30,7 @@ export const FormCard = ({heading, description, gridClassName, submitLabel, onSu
             </div>
           }
           <div hidden={collapsable && collapsed}>
-            <div className={`grid ${gridClassName} gap-8`}>
+            <div className="grid grid-cols-6 gap-4">
               {children}
             </div>
           </div>

@@ -1,15 +1,15 @@
 import {useState, useRef} from 'react'
 
 import {useSupabase} from '@/lib/supabase'
-import {Card} from '@/components/layout/card'
-import {CardMain} from '@/components/layout/card-main'
-import {CardBottom} from '@/components/layout/card-bottom'
-import {Heading} from '@/components/elements/heading'
-import {Input} from '@/components/forms/input'
-import {Submit} from '@/components/forms/submit'
-import {ErrorMessage} from '@/components/elements/error-message'
-import {SuccessMessage} from '@/components/elements/success-message'
-import {ChevronLink} from '@/components/elements/chevron-link'
+import {Card} from '@/components/common/layout/card'
+import {CardMain} from '@/components/common/layout/card-main'
+import {CardBottom} from '@/components/common/layout/card-bottom'
+import {Heading} from '@/components/common/elements/heading'
+import {Input} from '@/components/common/forms/input'
+import {Submit} from '@/components/common/forms/submit'
+import {ErrorMessage} from '@/components/common/elements/error-message'
+import {SuccessMessage} from '@/components/common/elements/success-message'
+import {ChevronLink} from '@/components/common/elements/chevron-link'
 
 export const ResetPassword = () => {
   const supabase = useSupabase()

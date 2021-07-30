@@ -2,13 +2,13 @@ import {useEffect} from 'react'
 import {useRouter} from 'next/router'
 
 import {useSupabase} from '@/lib/supabase'
-import {Container} from '@/components/container'
-import {BlankCanvas} from '@/components/layout/blank-canvas'
-import {Card} from '@/components/layout/card'
-import {CardMain} from '@/components/layout/card-main'
-import {CardBottom} from '@/components/layout/card-bottom'
-import {Heading} from '@/components/elements/heading'
-import {ChevronLink} from '@/components/elements/chevron-link'
+import {Container} from '@/components/common/container'
+import {BlankCanvas} from '@/components/common/layout/blank-canvas'
+import {Card} from '@/components/common/layout/card'
+import {CardMain} from '@/components/common/layout/card-main'
+import {CardBottom} from '@/components/common/layout/card-bottom'
+import {Heading} from '@/components/common/elements/heading'
+import {ChevronLink} from '@/components/common/elements/chevron-link'
 
 export const IndexPage = () => {
   const router = useRouter()

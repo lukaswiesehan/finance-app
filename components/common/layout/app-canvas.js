@@ -1,7 +1,7 @@
-import {NavMenu} from '@/components/layout/nav-menu'
-import {ThemeButton} from '@/components/elements/theme-button'
-import {SignOutButton} from '@/components/elements/signout-button'
-import {FooterMenu} from '@/components/layout/footer-menu'
+import {NavMenu} from '@/components/common/layout/nav-menu'
+import {ThemeButton} from '@/components/common/elements/theme-button'
+import {SignOutButton} from '@/components/auth/signout-button'
+import {FooterMenu} from '@/components/common/layout/footer-menu'
 
 export const AppCanvas = ({children}) => {
   return (

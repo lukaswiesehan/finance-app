@@ -1,4 +1,4 @@
-import {FooterLink} from '@/components/elements/footer-link'
+import {FooterLink} from '@/components/common/elements/footer-link'
 
 export const FooterMenu = () => {
   const currentYear = new Date().getFullYear()

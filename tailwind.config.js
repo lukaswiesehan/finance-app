@@ -29,7 +29,7 @@ module.exports = {
       'true-gray': colors.trueGray,
       blue: colors.blue,
       pink: colors.pink,
-
+      orange: colors.orange
     },
     extend: {},
   },

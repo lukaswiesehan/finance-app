@@ -1,13 +1,12 @@
 import {useState, useEffect, useRef} from 'react'
+import {isMatch as matchDate, parse as parseDate, format as formatDate} from 'date-fns'
 
 import {useSupabase} from '@/lib/supabase'
 import {useNotifications} from '@/lib/notifications'
-import {SettingsSection} from '@/components/layout/settings-section'
-import {FormCard} from '@/components/layout/form-card'
-import {Input} from '@/components/forms/input'
-import {PasswordStrength} from '@/components/forms/password-strength'
-import {ErrorMessage} from '@/components/elements/error-message'
-import {SuccessMessage} from '@/components/elements/success-message'
+import {SettingsSection} from '@/components/settings/settings-section'
+import {FormCard} from '@/components/common/forms/form-card'
+import {Input} from '@/components/common/forms/input'
+import {PasswordStrength} from '@/components/common/forms/password-strength'
 
 export const ProfileSettings = ({session}) => {
   const supabase = useSupabase()
@@ -17,9 +16,11 @@ export const ProfileSettings = ({session}) => {
 
   const firstNameRef = useRef()
   const lastNameRef = useRef()
+  const birthdayRef = useRef()
   const [profileFormLoading, setProfileFormLoading] = useState(false)
   const [firstNameError, setFirstNameError] = useState(null)
   const [lastNameError, setLastNameError] = useState(null)
+  const [birthdayError, setBirthdayError] = useState(null)
 
   const emailRef = useRef()
   const repeatEmailRef = useRef()
@@ -48,17 +49,19 @@ export const ProfileSettings = ({session}) => {
       repeatEmailRef.current.value = user.email
       const {data, error, status} = await supabase
         .from('users')
-        .select('first_name, last_name')
+        .select('first_name, last_name, birthday')
         .eq('user_id', user.id)
         .single()
       if(error && status !== 406) {
         throw error
       } else if(data) {
+        setLoading(false)
         firstNameRef.current.value = data.first_name
         lastNameRef.current.value = data.last_name
+        birthdayRef.current.value = data.birthday ? formatDate(new Date(data.birthday), 'dd.MM.yyyy') : null
       }
     } catch(error) {
-      alert(error.message)
+      showNotification({type: 'error', heading: `Fehler ${error.code}`, text: error.message})
     } finally {
       setLoading(false)
     }
@@ -86,22 +89,37 @@ export const ProfileSettings = ({session}) => {
     }
   }
 
+  const validateBirthday = () => {
+    if(birthdayRef.current.value == '') {
+      setBirthdayError('Bitte gib Deinen Geburtstag ein.')
+      return false
+    } else if(!matchDate(birthdayRef.current.value, 'dd.MM.yyyy') || parseDate(birthdayRef.current.value, 'dd.MM.yyyy', new Date()).getFullYear() < 1900) {
+      setBirthdayError("Das Datum muss dem Format 'TT.MM.JJJJ' entsprechen.")
+      return false
+    } else {
+      setBirthdayError(null)
+      return true
+    }
+  }
+
   const updateProfile = async (e) => {
     e.preventDefault()
     try {
       setProfileFormLoading(true)
       const firstNameSuccess = validateFirstName()
       const lastNameSuccess = validateLastName()
-      if(firstNameSuccess && lastNameSuccess) {
+      const birthdaySuccess = validateBirthday()
+      if(firstNameSuccess && lastNameSuccess && birthdaySuccess) {
         const user = supabase.auth.user()
         const {error} = await supabase.from('users').upsert({
           user_id: user.id,
           first_name: firstNameRef.current.value,
           last_name: lastNameRef.current.value,
+          birthday: formatDate(parseDate(birthdayRef.current.value, 'dd.MM.yyyy', new Date()), 'yyyy-MM-dd'),
           updated_at: new Date()
         }, {returning: 'minimal'})
         if(error) throw error
-        showNotification({type: 'success', text: 'Dein Profil wurde gespeichert.'})
+        showNotification({type: 'success', text: 'Dein Profil wurde gespeichert.', autoRemove: true})
       }
     } catch(error) {
       showNotification({type: 'error', heading: `Fehler ${error.code}`, text: error.message})
@@ -200,7 +218,7 @@ export const ProfileSettings = ({session}) => {
           password: repeatPasswordRef.current.value
         })
         if(error) throw error
-        showNotification({type: 'success', text: 'Dein Passwort wurde erfolgreich geändert.'})
+        showNotification({type: 'success', text: 'Dein Passwort wurde erfolgreich geändert.', autoRemove: true})
       }
     } catch(error) {
       showNotification({type: 'error', heading: `Fehler ${error.code}`, text: error.message})
@@ -216,40 +234,41 @@ export const ProfileSettings = ({session}) => {
       <FormCard 
         heading="Persönliche Informationen" 
         description="Lorem ipsum dolor sit amet."
-        gridClassName="grid-cols-2"
+        columns="3"
         submitLabel="Speichern"
         onSubmit={updateProfile}
         loading={profileFormLoading}
       >
-        <Input type="text" id="first-name" label="Dein Vorname" placeholder="John" onBlur={validateFirstName} error={firstNameError} ref={firstNameRef}/>
-        <Input type="text" id="last-name" label="Dein Nachname" placeholder="Doe" onBlur={validateLastName} error={lastNameError} ref={lastNameRef}/>
+        <Input className="col-span-2" type="text" id="first-name" label="Dein Vorname" placeholder="John" onBlur={validateFirstName} error={firstNameError} ref={firstNameRef} skeleton={loading}/>
+        <Input className="col-span-3" type="text" id="last-name" label="Dein Nachname" placeholder="Doe" onBlur={validateLastName} error={lastNameError} ref={lastNameRef} skeleton={loading}/>
+        <Input className="col-span-2" type="text" id="last-name" label="Dein Geburtstag" placeholder="TT.MM.JJJJ" onBlur={validateBirthday} error={birthdayError} ref={birthdayRef} skeleton={loading}/>
       </FormCard>
       <FormCard 
         heading="Email-Adresse" 
         description="Lorem ipsum dolor sit amet."
-        gridClassName="grid-cols-2"
+        columns="2"
         submitLabel="Speichern"
         onSubmit={updateEmail}
         loading={emailFormLoading}
         collapsable
       >
-        <Input type="email" id="email" label="Deine Email-Adresse" placeholder="john.doe@email.com" onBlur={validateEmail} error={emailError} ref={emailRef}/>
-        <Input type="email" id="repeat-email" label="Email-Adresse bestätigen" placeholder="john.doe@email.com" onBlur={validateRepeatEmail} error={repeatEmailError} ref={repeatEmailRef}/>
+        <Input className="col-span-3" type="email" id="email" label="Deine Email-Adresse" placeholder="john.doe@email.com" onBlur={validateEmail} error={emailError} ref={emailRef}/>
+        <Input className="col-span-3" type="email" id="repeat-email" label="Email-Adresse bestätigen" placeholder="john.doe@email.com" onBlur={validateRepeatEmail} error={repeatEmailError} ref={repeatEmailRef}/>
       </FormCard>
       <FormCard 
         heading="Passwort" 
         description="Lorem ipsum dolor sit amet."
-        gridClassName="grid-cols-2"
+        columns="2"
         submitLabel="Passwort ändern"
         onSubmit={updatePassword}
         loading={passwordFormLoading}
         collapsable
       >
-        <div className="space-y-2">
+        <div className="col-span-3 space-y-2">
           <Input type="password" id="password" label="Neues Passwort" placeholder="Passwort" onBlur={validatePassword} error={passwordError} ref={passwordRef}/>
           {passwordStrength && <PasswordStrength strength={passwordStrength}/>}
         </div>
-        <Input type="password" id="repeat-password" label="Passwort bestätigen" placeholder="Passwort" onBlur={validateRepeatPassword} error={repeatPasswordError} ref={repeatPasswordRef}/>
+        <Input className="col-span-3" type="password" id="repeat-password" label="Passwort bestätigen" placeholder="Passwort" onBlur={validateRepeatPassword} error={repeatPasswordError} ref={repeatPasswordRef}/>
       </FormCard>
     </SettingsSection>
   )

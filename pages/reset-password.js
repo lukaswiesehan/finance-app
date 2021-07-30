@@ -1,6 +1,6 @@
-import {Container} from '@/components/container'
-import {BlankCanvas} from '@/components/layout/blank-canvas'
-import {ResetPassword} from '@/components/reset-password'
+import {Container} from '@/components/common/container'
+import {BlankCanvas} from '@/components/common/layout/blank-canvas'
+import {ResetPassword} from '@/components/auth/reset-password'
 
 export const ResetPasswordPage = () => {
   return (
