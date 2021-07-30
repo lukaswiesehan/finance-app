@@ -21,8 +21,8 @@ export const SignOutButton = () => {
   }
 
   return (
-    <button onClick={logout} className="w-6 h-6 flex justify-center items-center rounded-md text-white  bg-gradient-to-br from-pink-400 to-rose-500 border border-rose-500 ring-2 ring-offset-2 ring-offset-gray-100 ring-transparent hover:ring-gray-300">
-      <FontAwesomeIcon icon={faSignOutAlt} className="text-sm"/>
+    <button onClick={logout} className="transition-none hover:transition-none text-2xl text-gray-400 hover:text-gray-500">
+      <FontAwesomeIcon icon={faSignOutAlt} className="block"/>
     </button>
   )
 }
