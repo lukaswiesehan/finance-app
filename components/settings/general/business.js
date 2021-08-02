@@ -2,7 +2,6 @@ import {useState, useEffect, useRef} from 'react'
 
 import {useSupabase} from '@/lib/supabase'
 import {useNotifications} from '@/lib/notifications'
-import {SettingsSection} from '@/components/settings/settings-section'
 import {FormCard} from '@/components/common/forms/form-card'
 import {Input} from '@/components/common/forms/input'
 
@@ -19,14 +18,12 @@ export const BusinessSettings = ({session}) => {
   const businessEmailRef = useRef()
   const businessPhoneRef = useRef()
   const businessWebsiteRef = useRef()
-  const [contactDataFormLoading, setContactDataFormLoading] = useState(false)
+  const [formLoading, setFormLoading] = useState(false)
   const [businessNameError, setBusinessNameError] = useState(null)
   const [businessStreetError, setBusinessStreetError] = useState(null)
   const [businessPostalError, setBusinessPostalError] = useState(null)
   const [businessCityError, setBusinessCityError] = useState(null)
   const [businessEmailError, setBusinessEmailError] = useState(null)
-
-  // Initial Loading Stuff
 
   useEffect(() => {
     getBusinessData()
@@ -38,7 +35,7 @@ export const BusinessSettings = ({session}) => {
       const user = supabase.auth.user()
       const {data, error, status} = await supabase
         .from('users')
-        .select('business_name, business_contact_data')
+        .select('business_name, business_contact_data, business_tax_data')
         .eq('user_id', user.id)
         .single()
       if(error && status !== 406) {
@@ -59,8 +56,6 @@ export const BusinessSettings = ({session}) => {
       setLoading(false)
     }
   }
-
-  // Business Contact Data Stuff
 
   const validateBusinessName = () => {
     if(businessNameRef.current.value == '') {
@@ -128,7 +123,7 @@ export const BusinessSettings = ({session}) => {
   const updateContactData = async (e) => {
     e.preventDefault()
     try {
-      setContactDataFormLoading(true)
+      setFormLoading(true)
       if(validateAll()) {
         const user = supabase.auth.user()
         const {error} = await supabase.from('users').upsert({
@@ -150,30 +145,25 @@ export const BusinessSettings = ({session}) => {
     } catch(error) {
       showNotification({type: 'error', heading: `Fehler ${error.code}`, text: error.message})
     } finally {
-      setContactDataFormLoading(false)
+      setFormLoading(false)
     }
   }
 
-  // Render Component
-
   return (
-    <SettingsSection heading="Unternehmen" description="Gib hier die Details zu Deinem Unternehmen ein. Diese werden für die Rechnungstellung und weitere Funktionen benötigt.">
-      <FormCard 
-        heading="Anschrift & Kontaktdaten" 
-        description="Lorem ipsum dolor sit amet."
-        columns="2"
-        submitLabel="Speichern"
-        onSubmit={updateContactData}
-        loading={contactDataFormLoading}
-      >
-        <Input className="col-span-5" type="text" id="business-name" label="Unternehmensbezeichnung" placeholder="Acme Inc." onBlur={validateBusinessName} error={businessNameError} ref={businessNameRef} skeleton={loading}/>
-        <Input className="col-span-3" type="text" id="business-street" label="Straße & Hausnummer" placeholder="Blaubeerweg 1" onBlur={validateBusinessStreet} error={businessStreetError} ref={businessStreetRef} skeleton={loading}/>
-        <Input type="text" id="business-postal" label="Postleitzahl" placeholder="21614" onBlur={validateBusinessPostal} error={businessPostalError} ref={businessPostalRef} skeleton={loading}/>
-        <Input className="col-span-2" type="text" id="business-city" label="Ort" placeholder="Buxtehude" onBlur={validateBusinessCity} error={businessCityError} ref={businessCityRef} skeleton={loading}/>
-        <Input className="col-span-3" type="email" id="business-email" label="Email-Adresse" placeholder="info@acme.de" onBlur={validateBusinessEmail} error={businessEmailError} ref={businessEmailRef} skeleton={loading}/>
-        <Input className="col-span-3" type="phone" id="business-phone" label="Telefonnummer" placeholder="+49 174 234 98 76" ref={businessPhoneRef} skeleton={loading}/>
-        <Input className="col-span-3" type="text" id="business-website" label="Website" placeholder="www.acme.de" ref={businessWebsiteRef} skeleton={loading}/>
-      </FormCard>
-    </SettingsSection>
+    <FormCard 
+      heading="Anschrift & Kontaktdaten" 
+      description="Lorem ipsum dolor sit amet."
+      submitLabel="Kontaktdaten speichern"
+      onSubmit={updateContactData}
+      loading={formLoading}
+    >
+      <Input className="col-span-5" type="text" id="business-name" label="Unternehmensbezeichnung" placeholder="Acme Inc." onBlur={validateBusinessName} error={businessNameError} ref={businessNameRef} skeleton={loading}/>
+      <Input className="col-span-3" type="text" id="business-street" label="Straße & Hausnummer" placeholder="Blaubeerweg 1" onBlur={validateBusinessStreet} error={businessStreetError} ref={businessStreetRef} skeleton={loading}/>
+      <Input type="text" id="business-postal" label="Postleitzahl" placeholder="21614" onBlur={validateBusinessPostal} error={businessPostalError} ref={businessPostalRef} skeleton={loading}/>
+      <Input className="col-span-2" type="text" id="business-city" label="Ort" placeholder="Buxtehude" onBlur={validateBusinessCity} error={businessCityError} ref={businessCityRef} skeleton={loading}/>
+      <Input className="col-span-3" type="email" id="business-email" label="Email-Adresse" placeholder="info@acme.de" onBlur={validateBusinessEmail} error={businessEmailError} ref={businessEmailRef} skeleton={loading}/>
+      <Input className="col-span-3" type="phone" id="business-phone" label="Telefonnummer" placeholder="+49 174 234 98 76" ref={businessPhoneRef} skeleton={loading}/>
+      <Input className="col-span-3" type="text" id="business-website" label="Website" placeholder="www.acme.de" ref={businessWebsiteRef} skeleton={loading}/>
+    </FormCard>
   )
 }

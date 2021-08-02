@@ -29,12 +29,15 @@ module.exports = {
       'true-gray': colors.trueGray,
       blue: colors.blue,
       pink: colors.pink,
-      orange: colors.orange
+      orange: colors.orange,
+      teal: colors.teal
     },
     extend: {},
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms')
+  ],
 }

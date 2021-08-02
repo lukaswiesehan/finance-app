@@ -1,36 +1,33 @@
 import {useState, useEffect, useRef} from 'react'
-import {isMatch as matchDate, parse as parseDate, format as formatDate} from 'date-fns'
 
 import {useSupabase} from '@/lib/supabase'
-import {useNotifications} from '@/lib/notifications'
-import {SettingsSection} from '@/components/settings/settings-section'
-import {FormCard} from '@/components/common/forms/form-card'
-import {Input} from '@/components/common/forms/input'
-import {PasswordStrength} from '@/components/common/forms/password-strength'
+import {SettingsSection} from '@/components/layout/settings-section'
+import {FormCard} from '@/components/layout/form-card'
+import {Input} from '@/components/forms/input'
+import {PasswordStrength} from '@/components/forms/password-strength'
+import {ErrorMessage} from '@/components/elements/error-message'
+import {SuccessMessage} from '@/components/elements/success-message'
 
 export const ProfileSettings = ({session}) => {
   const supabase = useSupabase()
-  const showNotification = useNotifications()
 
   const [loading, setLoading] = useState(false)
 
   const firstNameRef = useRef()
   const lastNameRef = useRef()
-  const birthdayRef = useRef()
-  const [profileFormLoading, setProfileFormLoading] = useState(false)
+  const [profileFormState, setProfileFormState] = useState({state: 'idle', message: ''})
   const [firstNameError, setFirstNameError] = useState(null)
   const [lastNameError, setLastNameError] = useState(null)
-  const [birthdayError, setBirthdayError] = useState(null)
 
   const emailRef = useRef()
   const repeatEmailRef = useRef()
-  const [emailFormLoading, setEmailFormLoading] = useState(false)
+  const [emailFormState, setEmailFormState] = useState({state: 'idle', message: ''})
   const [emailError, setEmailError] = useState(null)
   const [repeatEmailError, setRepeatEmailError] = useState(null)
 
   const passwordRef = useRef()
   const repeatPasswordRef = useRef()
-  const [passwordFormLoading, setPasswordFormLoading] = useState(false)
+  const [passwordFormState, setPasswordFormState] = useState({state: 'idle', message: ''})
   const [passwordStrength, setPasswordStrength] = useState(null)
   const [passwordError, setPasswordError] = useState(null)
   const [repeatPasswordError, setRepeatPasswordError] = useState(null)
@@ -49,19 +46,17 @@ export const ProfileSettings = ({session}) => {
       repeatEmailRef.current.value = user.email
       const {data, error, status} = await supabase
         .from('users')
-        .select('first_name, last_name, birthday')
+        .select('first_name, last_name')
         .eq('user_id', user.id)
         .single()
       if(error && status !== 406) {
         throw error
       } else if(data) {
-        setLoading(false)
         firstNameRef.current.value = data.first_name
         lastNameRef.current.value = data.last_name
-        birthdayRef.current.value = data.birthday ? formatDate(new Date(data.birthday), 'dd.MM.yyyy') : null
       }
     } catch(error) {
-      showNotification({type: 'error', heading: `Fehler ${error.code}`, text: error.message})
+      alert(error.message)
     } finally {
       setLoading(false)
     }
@@ -89,42 +84,29 @@ export const ProfileSettings = ({session}) => {
     }
   }
 
-  const validateBirthday = () => {
-    if(birthdayRef.current.value == '') {
-      setBirthdayError('Bitte gib Deinen Geburtstag ein.')
-      return false
-    } else if(!matchDate(birthdayRef.current.value, 'dd.MM.yyyy') || parseDate(birthdayRef.current.value, 'dd.MM.yyyy', new Date()).getFullYear() < 1900) {
-      setBirthdayError("Das Datum muss dem Format 'TT.MM.JJJJ' entsprechen.")
-      return false
-    } else {
-      setBirthdayError(null)
-      return true
-    }
-  }
-
   const updateProfile = async (e) => {
     e.preventDefault()
-    try {
-      setProfileFormLoading(true)
-      const firstNameSuccess = validateFirstName()
-      const lastNameSuccess = validateLastName()
-      const birthdaySuccess = validateBirthday()
-      if(firstNameSuccess && lastNameSuccess && birthdaySuccess) {
+    setProfileFormState({state: 'loading', message: ''})
+    const firstNameSuccess = validateFirstName()
+    const lastNameSuccess = validateLastName()
+    if(firstNameSuccess && lastNameSuccess) {
+      try {
         const user = supabase.auth.user()
         const {error} = await supabase.from('users').upsert({
           user_id: user.id,
           first_name: firstNameRef.current.value,
           last_name: lastNameRef.current.value,
-          birthday: formatDate(parseDate(birthdayRef.current.value, 'dd.MM.yyyy', new Date()), 'yyyy-MM-dd'),
           updated_at: new Date()
         }, {returning: 'minimal'})
-        if(error) throw error
-        showNotification({type: 'success', text: 'Dein Profil wurde gespeichert.', autoRemove: true})
+        if(error) {
+          throw error
+        }
+        setProfileFormState({state: 'success', message: 'Dein Profil wurde gespeichert.'})
+      } catch(error) {
+        setProfileFormState({state: 'error', message: error.message})
       }
-    } catch(error) {
-      showNotification({type: 'error', heading: `Fehler ${error.code}`, text: error.message})
-    } finally {
-      setProfileFormLoading(false)
+    } else {
+      setProfileFormState({state: 'idle', message: ''})
     }
   }
 
@@ -156,21 +138,20 @@ export const ProfileSettings = ({session}) => {
 
   const updateEmail = async (e) => {
     e.preventDefault()
-    try {
-      setEmailFormLoading(true)
-      const emailSuccess = validateEmail()
-      const repeatEmailSuccess = validateRepeatEmail()
-      if(emailSuccess && repeatEmailSuccess) {
-        const {error} = await supabase.auth.update({
-          email: repeatEmailRef.current.value
-        })
-        if(error) throw error
-        showNotification({type: 'info', heading: 'Neue Email-Adresse bestätigen', text: 'Schließe die Änderung über den Link ab, den wir an Deine neue Email-Adresse gesendet haben.'})
+    setEmailFormState({state: 'loading', message: ''})
+    const emailSuccess = validateEmail()
+    const repeatEmailSuccess = validateRepeatEmail()
+    if(emailSuccess && repeatEmailSuccess) {
+      const {error} = await supabase.auth.update({
+        email: repeatEmailRef.current.value
+      })
+      if(error) {
+        setEmailFormState({state: 'error', message: 'Beim Ändern der Email-Adresse ist ein Fehler aufgetreten.'})
+      } else {
+        setEmailFormState({state: 'success', message: 'Schließe die Änderung über den Link ab, den wir an Deine neue Email-Adresse gesendet haben.'})
       }
-    } catch(error) {
-      showNotification({type: 'error', heading: `Fehler ${error.code}`, text: error.message})
-    } finally {
-      setEmailFormLoading(false)
+    } else {
+      setEmailFormState({state: 'idle', message: ''})
     }
   }
 
@@ -209,21 +190,20 @@ export const ProfileSettings = ({session}) => {
 
   const updatePassword = async (e) => {
     e.preventDefault()
-    try {
-      setPasswordFormLoading(true)
-      const passwordSuccess = validatePassword()
-      const repeatPasswordSuccess = validateRepeatPassword()
-      if(passwordSuccess && repeatPasswordSuccess) {
-        const {error} = await supabase.auth.update({
-          password: repeatPasswordRef.current.value
-        })
-        if(error) throw error
-        showNotification({type: 'success', text: 'Dein Passwort wurde erfolgreich geändert.', autoRemove: true})
+    setPasswordFormState({state: 'loading', message: ''})
+    const passwordSuccess = validatePassword()
+    const repeatPasswordSuccess = validateRepeatPassword()
+    if(passwordSuccess && repeatPasswordSuccess) {
+      const {error} = await supabase.auth.update({
+        password: repeatPasswordRef.current.value
+      })
+      if(error) {
+        setPasswordFormState({state: 'error', message: 'Beim Ändern des Passworts ist ein Fehler aufgetreten.'})
+      } else {
+        setPasswordFormState({state: 'success', message: 'Dein Passwort wurde erfolgreich geändert.'})
       }
-    } catch(error) {
-      showNotification({type: 'error', heading: `Fehler ${error.code}`, text: error.message})
-    } finally {
-      setPasswordFormLoading(false)
+    } else {
+      setPasswordFormState({state: 'idle', message: ''})
     }
   }
 
@@ -234,14 +214,15 @@ export const ProfileSettings = ({session}) => {
       <FormCard 
         heading="Persönliche Informationen" 
         description="Lorem ipsum dolor sit amet."
-        columns="3"
+        columns="2"
         submitLabel="Speichern"
         onSubmit={updateProfile}
-        loading={profileFormLoading}
+        loading={profileFormState.state == 'loading'}
       >
-        <Input className="col-span-2" type="text" id="first-name" label="Dein Vorname" placeholder="John" onBlur={validateFirstName} error={firstNameError} ref={firstNameRef} skeleton={loading}/>
-        <Input className="col-span-3" type="text" id="last-name" label="Dein Nachname" placeholder="Doe" onBlur={validateLastName} error={lastNameError} ref={lastNameRef} skeleton={loading}/>
-        <Input className="col-span-2" type="text" id="last-name" label="Dein Geburtstag" placeholder="TT.MM.JJJJ" onBlur={validateBirthday} error={birthdayError} ref={birthdayRef} skeleton={loading}/>
+        <Input type="text" id="first-name" label="Dein Vorname" placeholder="John" onBlur={validateFirstName} error={firstNameError} ref={firstNameRef}/>
+        <Input type="text" id="last-name" label="Dein Nachname" placeholder="Doe" onBlur={validateLastName} error={lastNameError} ref={lastNameRef}/>
+        {profileFormState.state == 'error' && <div className="col-span-2"><ErrorMessage>{profileFormState.message}</ErrorMessage></div>}
+        {profileFormState.state == 'success' && <div className="col-span-2"><SuccessMessage>{profileFormState.message}</SuccessMessage></div>}
       </FormCard>
       <FormCard 
         heading="Email-Adresse" 
@@ -249,11 +230,13 @@ export const ProfileSettings = ({session}) => {
         columns="2"
         submitLabel="Speichern"
         onSubmit={updateEmail}
-        loading={emailFormLoading}
+        loading={emailFormState.state == 'loading'}
         collapsable
       >
-        <Input className="col-span-3" type="email" id="email" label="Deine Email-Adresse" placeholder="john.doe@email.com" onBlur={validateEmail} error={emailError} ref={emailRef}/>
-        <Input className="col-span-3" type="email" id="repeat-email" label="Email-Adresse bestätigen" placeholder="john.doe@email.com" onBlur={validateRepeatEmail} error={repeatEmailError} ref={repeatEmailRef}/>
+        <Input type="email" id="email" label="Deine Email-Adresse" placeholder="john.doe@email.com" onBlur={validateEmail} error={emailError} ref={emailRef}/>
+        <Input type="email" id="repeat-email" label="Email-Adresse bestätigen" placeholder="john.doe@email.com" onBlur={validateRepeatEmail} error={repeatEmailError} ref={repeatEmailRef}/>
+        {emailFormState.state == 'error' && <div className="col-span-2"><ErrorMessage>{emailFormState.message}</ErrorMessage></div>}
+        {emailFormState.state == 'success' && <div className="col-span-2"><SuccessMessage>{emailFormState.message}</SuccessMessage></div>}
       </FormCard>
       <FormCard 
         heading="Passwort" 
@@ -261,14 +244,16 @@ export const ProfileSettings = ({session}) => {
         columns="2"
         submitLabel="Passwort ändern"
         onSubmit={updatePassword}
-        loading={passwordFormLoading}
+        loading={passwordFormState.state == 'loading'}
         collapsable
       >
-        <div className="col-span-3 space-y-2">
+        <div className="space-y-2">
           <Input type="password" id="password" label="Neues Passwort" placeholder="Passwort" onBlur={validatePassword} error={passwordError} ref={passwordRef}/>
           {passwordStrength && <PasswordStrength strength={passwordStrength}/>}
         </div>
-        <Input className="col-span-3" type="password" id="repeat-password" label="Passwort bestätigen" placeholder="Passwort" onBlur={validateRepeatPassword} error={repeatPasswordError} ref={repeatPasswordRef}/>
+        <Input type="password" id="repeat-password" label="Passwort bestätigen" placeholder="Passwort" onBlur={validateRepeatPassword} error={repeatPasswordError} ref={repeatPasswordRef}/>
+        {passwordFormState.state == 'error' && <div className="col-span-2"><ErrorMessage>{passwordFormState.message}</ErrorMessage></div>}
+        {passwordFormState.state == 'success' && <div className="col-span-2"><SuccessMessage>{passwordFormState.message}</SuccessMessage></div>}
       </FormCard>
     </SettingsSection>
   )

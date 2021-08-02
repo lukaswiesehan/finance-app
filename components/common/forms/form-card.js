@@ -16,13 +16,13 @@ export const FormCard = ({heading, description, submitLabel, onSubmit, loading, 
       <form onSubmit={onSubmit}>
         <CardMain className="p-6 space-y-6">
           {collapsable ? 
-            <div onClick={() => {setCollapsed(!collapsed)}} className="group w-full text-left flex justify-between items-center focus:outline-none cursor-pointer" tabIndex="0">
+            <button type="button" onClick={() => {setCollapsed(!collapsed)}} className="group w-full text-left flex justify-between items-center focus:outline-none cursor-pointer" tabIndex="0">
               <div>
                 <h3><Subheading>{heading}</Subheading></h3>
                 <p>{description}</p>
               </div>
               <FontAwesomeIcon icon={faChevronCircleDown} className={`text-xl rounded-full text-gray-800 group-focus:outline-none group-focus:ring-2 group-focus:ring-gray-800 group-focus:ring-offset-2 group-focus:ring-offset-gray-50 transform transition-transform duration-200 ease-in-out ${!collapsed && '-rotate-180'}`}/>
-            </div>
+            </button>
           : 
             <div>
               <h3><Subheading>{heading}</Subheading></h3>

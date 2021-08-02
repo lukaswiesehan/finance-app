@@ -16,8 +16,9 @@ export const Input = forwardRef(({className, type, id, label, placeholder, requi
         </label>
         <input className={`w-full bg-white px-4 py-2 rounded-lg border border-gray-200
           text-gray-600 placeholder-gray-400
+          ${disabled && 'bg-gray-50'}
           ${error && 'ring-2 ring-red-400 ring-offset-2 ring-offset-gray-50'}
-          focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-gray-50`}
+          focus:outline-none focus:border-gray-200 focus:ring-2 focus:ring-gray-800 focus:ring-offset-2`}
           type={type}
           id={id}
           name={id}
