@@ -155,13 +155,13 @@ export const BusinessSettings = ({session}) => {
       onSubmit={updateContactData}
       loading={formLoading}
     >
-      <Input className="col-span-5" type="text" id="business-name" label="Unternehmensbezeichnung" placeholder="Acme Inc." onBlur={validateBusinessName} error={businessNameError} ref={businessNameRef} skeleton={loading}/>
-      <Input className="col-span-3" type="text" id="business-street" label="Straße & Hausnummer" placeholder="Blaubeerweg 1" onBlur={validateBusinessStreet} error={businessStreetError} ref={businessStreetRef} skeleton={loading}/>
+      <Input className="lg:col-span-5" type="text" id="business-name" label="Unternehmensbezeichnung" placeholder="Acme Inc." onBlur={validateBusinessName} error={businessNameError} ref={businessNameRef} skeleton={loading}/>
+      <Input className="lg:col-span-3" type="text" id="business-street" label="Straße & Hausnummer" placeholder="Blaubeerweg 1" onBlur={validateBusinessStreet} error={businessStreetError} ref={businessStreetRef} skeleton={loading}/>
       <Input type="text" id="business-postal" label="Postleitzahl" placeholder="21614" onBlur={validateBusinessPostal} error={businessPostalError} ref={businessPostalRef} skeleton={loading}/>
-      <Input className="col-span-2" type="text" id="business-city" label="Ort" placeholder="Buxtehude" onBlur={validateBusinessCity} error={businessCityError} ref={businessCityRef} skeleton={loading}/>
-      <Input className="col-span-3" type="email" id="business-email" label="Email-Adresse" placeholder="info@acme.de" onBlur={validateBusinessEmail} error={businessEmailError} ref={businessEmailRef} skeleton={loading}/>
-      <Input className="col-span-3" type="phone" id="business-phone" label="Telefonnummer" placeholder="+49 174 234 98 76" ref={businessPhoneRef} skeleton={loading}/>
-      <Input className="col-span-3" type="text" id="business-website" label="Website" placeholder="www.acme.de" ref={businessWebsiteRef} skeleton={loading}/>
+      <Input className="lg:col-span-2" type="text" id="business-city" label="Ort" placeholder="Buxtehude" onBlur={validateBusinessCity} error={businessCityError} ref={businessCityRef} skeleton={loading}/>
+      <Input className="lg:col-span-3" type="email" id="business-email" label="Email-Adresse" placeholder="info@acme.de" onBlur={validateBusinessEmail} error={businessEmailError} ref={businessEmailRef} skeleton={loading}/>
+      <Input className="lg:col-span-3" type="phone" id="business-phone" label="Telefonnummer" placeholder="+49 174 234 98 76" ref={businessPhoneRef} skeleton={loading}/>
+      <Input className="lg:col-span-3" type="text" id="business-website" label="Website" placeholder="www.acme.de" ref={businessWebsiteRef} skeleton={loading}/>
     </FormCard>
   )
 }

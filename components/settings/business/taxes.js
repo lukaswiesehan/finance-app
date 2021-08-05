@@ -109,11 +109,11 @@ export const TaxSettings = ({session}) => {
       onSubmit={updateTaxData}
       loading={formLoading}
     >
-      <Input className="col-span-3" type="text" id="personal-tax-id" label="Steueridentifikationsnummer" placeholder="01 234 567 890" onBlur={validateTaxId} error={taxIdError} ref={taxIdRef} skeleton={loading}/>
-      <Input className="col-span-2" type="text" id="business-tax-id" label="Steuernummer" placeholder="12/345/67890" onBlur={validateTaxNumber} error={taxNumberError} ref={taxNumberRef} skeleton={loading}/>
-      <div/>
-      <Switch className="col-span-1" label="Umsatzsteuer" checked={vatRequired} onChange={setVatRequired}/>
-      <Input className="col-span-2" type="text" id="vat-id" label="Umsatzsteuer-ID" placeholder="DE123456789" disabled={!vatRequired} ref={vatIdRef} skeleton={loading}/>
+      <Input className="lg:col-span-3" type="text" id="personal-tax-id" label="Steueridentifikationsnummer" placeholder="01 234 567 890" onBlur={validateTaxId} error={taxIdError} ref={taxIdRef} skeleton={loading}/>
+      <Input className="lg:col-span-2" type="text" id="business-tax-id" label="Steuernummer" placeholder="12/345/67890" onBlur={validateTaxNumber} error={taxNumberError} ref={taxNumberRef} skeleton={loading}/>
+      <div className="hidden lg:block"/>
+      <Switch className="lg:col-span-1" label="Umsatzsteuer" checked={vatRequired} onChange={setVatRequired}/>
+      <Input className="lg:col-span-2" type="text" id="vat-id" label="Umsatzsteuer-ID" placeholder="DE123456789" disabled={!vatRequired} ref={vatIdRef} skeleton={loading}/>
     </FormCard>
   )
 }

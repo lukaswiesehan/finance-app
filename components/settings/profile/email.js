@@ -82,14 +82,13 @@ export const EmailSettings = ({session}) => {
     <FormCard 
       heading="Email-Adresse" 
       description="Lorem ipsum dolor sit amet."
-      columns="2"
       submitLabel="Email-Adresse speichern"
       onSubmit={updateEmail}
       loading={formLoading}
       collapsable
     >
-      <Input className="col-span-3" type="email" id="email" label="Deine Email-Adresse" placeholder="john.doe@email.com" onBlur={validateEmail} error={emailError} ref={emailRef} skeleton={loading}/>
-      <Input className="col-span-3" type="email" id="repeat-email" label="Email-Adresse bestätigen" placeholder="john.doe@email.com" onBlur={validateRepeatEmail} error={repeatEmailError} ref={repeatEmailRef} skeleton={loading}/>
+      <Input className="lg:col-span-3" type="email" id="email" label="Deine Email-Adresse" placeholder="john.doe@email.com" onBlur={validateEmail} error={emailError} ref={emailRef} skeleton={loading}/>
+      <Input className="lg:col-span-3" type="email" id="repeat-email" label="Email-Adresse bestätigen" placeholder="john.doe@email.com" onBlur={validateRepeatEmail} error={repeatEmailError} ref={repeatEmailRef} skeleton={loading}/>
     </FormCard>
   )
 }

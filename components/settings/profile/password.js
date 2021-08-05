@@ -72,17 +72,16 @@ export const PasswordSettings = () => {
     <FormCard 
       heading="Passwort" 
       description="Lorem ipsum dolor sit amet."
-      columns="2"
       submitLabel="Passwort ändern"
       onSubmit={updatePassword}
       loading={formLoading}
       collapsable
     >
-      <div className="col-span-3 space-y-2">
+      <div className="lg:col-span-3 space-y-2">
         <Input type="password" id="password" label="Neues Passwort" placeholder="Passwort" onBlur={validatePassword} error={passwordError} ref={passwordRef}/>
         {passwordStrength && <PasswordStrength strength={passwordStrength}/>}
       </div>
-      <Input className="col-span-3" type="password" id="repeat-password" label="Passwort bestätigen" placeholder="Passwort" onBlur={validateRepeatPassword} error={repeatPasswordError} ref={repeatPasswordRef}/>
+      <Input className="lg:col-span-3" type="password" id="repeat-password" label="Passwort bestätigen" placeholder="Passwort" onBlur={validateRepeatPassword} error={repeatPasswordError} ref={repeatPasswordRef}/>
     </FormCard>
   )
 }

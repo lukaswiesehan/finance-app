@@ -111,14 +111,13 @@ export const ProfileSettings = ({session}) => {
     <FormCard 
       heading="Persönliche Informationen" 
       description="Lorem ipsum dolor sit amet."
-      columns="3"
       submitLabel="Profil speichern"
       onSubmit={updateProfile}
       loading={formLoading}
     >
-      <Input className="col-span-2" type="text" id="first-name" label="Dein Vorname" placeholder="John" onBlur={validateFirstName} error={firstNameError} ref={firstNameRef} skeleton={loading}/>
-      <Input className="col-span-3" type="text" id="last-name" label="Dein Nachname" placeholder="Doe" onBlur={validateLastName} error={lastNameError} ref={lastNameRef} skeleton={loading}/>
-      <Input className="col-span-2" type="text" id="last-name" label="Dein Geburtstag" placeholder="TT.MM.JJJJ" onBlur={validateBirthday} error={birthdayError} ref={birthdayRef} skeleton={loading}/>
+      <Input className="lg:col-span-2" type="text" id="first-name" label="Dein Vorname" placeholder="John" onBlur={validateFirstName} error={firstNameError} ref={firstNameRef} skeleton={loading}/>
+      <Input className="lg:col-span-3" type="text" id="last-name" label="Dein Nachname" placeholder="Doe" onBlur={validateLastName} error={lastNameError} ref={lastNameRef} skeleton={loading}/>
+      <Input className="lg:col-span-2" type="text" id="last-name" label="Dein Geburtstag" placeholder="TT.MM.JJJJ" onBlur={validateBirthday} error={birthdayError} ref={birthdayRef} skeleton={loading}/>
     </FormCard>
   )
 }

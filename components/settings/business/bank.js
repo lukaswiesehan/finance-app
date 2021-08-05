@@ -132,10 +132,10 @@ export const BankSettings = ({session}) => {
       onSubmit={updateBankData}
       loading={formLoading}
     >
-      <Input className="col-span-3" type="text" id="bank-name" label="Name der Bank" placeholder="Acme Bank AG" onBlur={validateBankName} error={bankNameError} ref={bankNameRef} skeleton={loading}/>
-      <Input className="col-span-3" type="text" id="bank-account-owner" label="Kontoinhaber" placeholder="John Doe" onBlur={validateAccountOwner} error={accountOwnerError} ref={accountOwnerRef} skeleton={loading}/>
-      <Input className="col-span-4" type="text" id="iban" label="IBAN" placeholder="DE00 0000 0000 0000 0000 00" onBlur={validateIban} error={ibanError} ref={ibanRef} skeleton={loading}/>
-      <Input className="col-span-2" type="text" id="bic" label="BIC" placeholder="XXXXDE00XXX" onBlur={validateBic} error={bicError} ref={bicRef} skeleton={loading}/>
+      <Input className="lg:col-span-3" type="text" id="bank-name" label="Name der Bank" placeholder="Acme Bank AG" onBlur={validateBankName} error={bankNameError} ref={bankNameRef} skeleton={loading}/>
+      <Input className="lg:col-span-3" type="text" id="bank-account-owner" label="Kontoinhaber" placeholder="John Doe" onBlur={validateAccountOwner} error={accountOwnerError} ref={accountOwnerRef} skeleton={loading}/>
+      <Input className="lg:col-span-4" type="text" id="iban" label="IBAN" placeholder="DE00 0000 0000 0000 0000 00" onBlur={validateIban} error={ibanError} ref={ibanRef} skeleton={loading}/>
+      <Input className="lg:col-span-2" type="text" id="bic" label="BIC" placeholder="XXXXDE00XXX" onBlur={validateBic} error={bicError} ref={bicRef} skeleton={loading}/>
     </FormCard>
   )
 }
