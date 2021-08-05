@@ -5,7 +5,8 @@ import {TabMenu} from '@/components/common/layout/tab-menu'
 
 export const SettingsPage = ({title, children}) => {
   const settingsPages = [
-    {name: 'Allgemein', href: '/settings/general'},
+    {name: 'Profil', href: '/settings/profile'},
+    {name: 'Unternehmen', href: '/settings/business'},
     {name: 'Angebote', href: '/settings/quotes'},
     {name: 'Rechnungen', href: '/settings/invoices'},
     {name: 'Emails', href: '/settings/emails'},

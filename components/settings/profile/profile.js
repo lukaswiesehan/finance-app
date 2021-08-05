@@ -98,7 +98,7 @@ export const ProfileSettings = ({session}) => {
           updated_at: new Date()
         }, {returning: 'minimal'})
         if(error) throw error
-        showNotification({type: 'success', text: 'Deine Unternehmensdaten wurden gespeichert.', autoRemove: true})
+        showNotification({type: 'success', text: 'Dein Profil wurde gespeichert.', autoRemove: true})
       }
     } catch(error) {
       showNotification({type: 'error', heading: `Fehler ${error.code}`, text: error.message})

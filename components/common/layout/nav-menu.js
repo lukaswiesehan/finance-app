@@ -8,7 +8,7 @@ export const NavMenu = () => {
   const navElements = [
     {name: 'Dashboard', icon: faRocketLaunch, bgClassName: 'bg-gradient-to-br from-green-400 to-cyan-500 border border-cyan-500', href: '/dashboard'},
     {name: 'Kunden', icon: faUserFriends, bgClassName: 'bg-gradient-to-br from-purple-500 to-indigo-500 border border-indigo-500', href: '/customers'},
-    {name: 'Einstellungen', icon: faCogs, bgClassName: 'bg-gradient-to-br from-blue-gray-400 to-gray-500 border border-gray-500', href: '/settings/general'}
+    {name: 'Einstellungen', icon: faCogs, bgClassName: 'bg-gradient-to-br from-blue-gray-400 to-gray-500 border border-gray-500', href: '/settings/profile'}
   ]
 
   return (

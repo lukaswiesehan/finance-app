@@ -34,8 +34,8 @@ export const BusinessSettings = ({session}) => {
       setLoading(true)
       const user = supabase.auth.user()
       const {data, error, status} = await supabase
-        .from('users')
-        .select('business_name, business_contact_data, business_tax_data')
+        .from('business_settings')
+        .select('business_name, street, postal, city, email, phone, website')
         .eq('user_id', user.id)
         .single()
       if(error && status !== 406) {
@@ -43,12 +43,12 @@ export const BusinessSettings = ({session}) => {
       } else if(data) {
         setLoading(false)
         businessNameRef.current.value = data.business_name
-        businessStreetRef.current.value = data.business_contact_data?.street || null
-        businessPostalRef.current.value = data.business_contact_data?.postal || null
-        businessCityRef.current.value = data.business_contact_data?.city || null
-        businessEmailRef.current.value = data.business_contact_data?.email || null
-        businessPhoneRef.current.value = data.business_contact_data?.phone || null
-        businessWebsiteRef.current.value = data.business_contact_data?.website || null
+        businessStreetRef.current.value = data.street
+        businessPostalRef.current.value = data.postal
+        businessCityRef.current.value = data.city
+        businessEmailRef.current.value = data.email
+        businessPhoneRef.current.value = data.phone
+        businessWebsiteRef.current.value = data.website
       }
     } catch(error) {
       showNotification({type: 'error', heading: `Fehler ${error.code}`, text: error.message})
@@ -126,21 +126,19 @@ export const BusinessSettings = ({session}) => {
       setFormLoading(true)
       if(validateAll()) {
         const user = supabase.auth.user()
-        const {error} = await supabase.from('users').upsert({
+        const {error} = await supabase.from('business_settings').upsert({
           user_id: user.id,
           business_name: businessNameRef.current.value,
-          business_contact_data: {
-            street: businessStreetRef.current.value,
-            postal: businessPostalRef.current.value,
-            city: businessCityRef.current.value,
-            email: businessEmailRef.current.value,
-            phone: businessPhoneRef.current.value,
-            website: businessWebsiteRef.current.value
-          },
+          street: businessStreetRef.current.value,
+          postal: businessPostalRef.current.value,
+          city: businessCityRef.current.value,
+          email: businessEmailRef.current.value,
+          phone: businessPhoneRef.current.value,
+          website: businessWebsiteRef.current.value,
           updated_at: new Date()
         }, {returning: 'minimal'})
         if(error) throw error
-        showNotification({type: 'success', text: 'Dein Profil wurde gespeichert.', autoRemove: true})
+        showNotification({type: 'success', text: 'Deine Unternehmensdaten wurden gespeichert.', autoRemove: true})
       }
     } catch(error) {
       showNotification({type: 'error', heading: `Fehler ${error.code}`, text: error.message})

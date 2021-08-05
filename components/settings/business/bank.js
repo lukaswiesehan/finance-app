@@ -32,18 +32,18 @@ export const BankSettings = ({session}) => {
       setLoading(true)
       const user = supabase.auth.user()
       const {data, error, status} = await supabase
-        .from('users')
-        .select('business_bank_data')
+        .from('business_settings')
+        .select('bank_name, bank_account_owner, iban, bic')
         .eq('user_id', user.id)
         .single()
       if(error && status !== 406) {
         throw error
       } else if(data) {
         setLoading(false)
-        bankNameRef.current.value = data.business_bank_data?.bank_name || null
-        accountOwnerRef.current.value = data.business_bank_data?.account_owner || null
-        ibanRef.current.value = data.business_bank_data?.iban || null
-        bicRef.current.value = data.business_bank_data?.bic || null
+        bankNameRef.current.value = data.bank_name
+        accountOwnerRef.current.value = data.bank_account_owner
+        ibanRef.current.value = data.iban
+        bicRef.current.value = data.bic
       }
     } catch(error) {
       showNotification({type: 'error', heading: `Fehler ${error.code}`, text: error.message})
@@ -106,14 +106,12 @@ export const BankSettings = ({session}) => {
       setFormLoading(true)
       if(validateAll()) {
         const user = supabase.auth.user()
-        const {error} = await supabase.from('users').upsert({
+        const {error} = await supabase.from('business_settings').upsert({
           user_id: user.id,
-          business_bank_data: {
-            bank_name: bankNameRef.current.value,
-            account_owner: accountOwnerRef.current.value,
-            iban: ibanRef.current.value,
-            bic: bicRef.current.value
-          },
+          bank_name: bankNameRef.current.value,
+          bank_account_owner: accountOwnerRef.current.value,
+          iban: ibanRef.current.value,
+          bic: bicRef.current.value,
           updated_at: new Date()
         }, {returning: 'minimal'})
         if(error) throw error

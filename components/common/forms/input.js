@@ -3,7 +3,7 @@ import {forwardRef} from 'react'
 export const Input = forwardRef(({className, type, id, label, placeholder, required, onBlur, error, disabled, skeleton}, ref) => {
   if(skeleton) {
     return (
-      <div className="space-y-1 animate-pulse">
+      <div className={`${className} space-y-1 animate-pulse`}>
         <span className="text-sm text-gray-200 bg-gray-200 border border-gray-300 rounded-md">{label}</span>
         <div className="w-full text-gray-200 bg-gray-200 border border-gray-300 px-4 py-2 rounded-lg">{placeholder}</div>
       </div>

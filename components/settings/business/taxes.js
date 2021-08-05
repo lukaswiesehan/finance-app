@@ -31,18 +31,18 @@ export const TaxSettings = ({session}) => {
       setLoading(true)
       const user = supabase.auth.user()
       const {data, error, status} = await supabase
-        .from('users')
-        .select('business_tax_data')
+        .from('business_settings')
+        .select('personal_tax_id, business_tax_id, vat_required, vat_id')
         .eq('user_id', user.id)
         .single()
       if(error && status !== 406) {
         throw error
       } else if(data) {
         setLoading(false)
-        taxIdRef.current.value = data.business_tax_data?.tax_id || null
-        taxNumberRef.current.value = data.business_tax_data?.tax_number || null
-        setVatRequired(data.business_tax_data?.vat_required || false)
-        vatIdRef.current.value = data.business_tax_data?.vat_id || null
+        taxIdRef.current.value = data.personal_tax_id
+        taxNumberRef.current.value = data.business_tax_id
+        setVatRequired(data.vat_required)
+        vatIdRef.current.value = data.vat_id
       }
     } catch(error) {
       showNotification({type: 'error', heading: `Fehler ${error.code}`, text: error.message})
@@ -83,14 +83,12 @@ export const TaxSettings = ({session}) => {
       setFormLoading(true)
       if(validateAll()) {
         const user = supabase.auth.user()
-        const {error} = await supabase.from('users').upsert({
+        const {error} = await supabase.from('business_settings').upsert({
           user_id: user.id,
-          business_tax_data: {
-            tax_id: taxIdRef.current.value,
-            tax_number: taxNumberRef.current.value,
-            vat_required: vatRequired,
-            vat_id: vatIdRef.current.value
-          },
+          personal_tax_id: taxIdRef.current.value,
+          business_tax_id: taxNumberRef.current.value,
+          vat_required: vatRequired,
+          vat_id: vatIdRef.current.value,
           updated_at: new Date()
         }, {returning: 'minimal'})
         if(error) throw error
@@ -111,11 +109,11 @@ export const TaxSettings = ({session}) => {
       onSubmit={updateTaxData}
       loading={formLoading}
     >
-      <Input className="col-span-3" type="text" id="tax-id" label="Steueridentifikationsnummer" placeholder="01 234 567 890" onBlur={validateTaxId} error={taxIdError} ref={taxIdRef} skeleton={loading}/>
-      <Input className="col-span-2" type="text" id="tax-number" label="Steuernummer" placeholder="12/345/67890" onBlur={validateTaxNumber} error={taxNumberError} ref={taxNumberRef} skeleton={loading}/>
+      <Input className="col-span-3" type="text" id="personal-tax-id" label="Steueridentifikationsnummer" placeholder="01 234 567 890" onBlur={validateTaxId} error={taxIdError} ref={taxIdRef} skeleton={loading}/>
+      <Input className="col-span-2" type="text" id="business-tax-id" label="Steuernummer" placeholder="12/345/67890" onBlur={validateTaxNumber} error={taxNumberError} ref={taxNumberRef} skeleton={loading}/>
       <div/>
       <Switch className="col-span-1" label="Umsatzsteuer" checked={vatRequired} onChange={setVatRequired}/>
-      <Input className="col-span-2" type="text" id="tax-number" label="Umsatzsteuer-ID" placeholder="DE123456789" disabled={!vatRequired} ref={vatIdRef} skeleton={loading}/>
+      <Input className="col-span-2" type="text" id="vat-id" label="Umsatzsteuer-ID" placeholder="DE123456789" disabled={!vatRequired} ref={vatIdRef} skeleton={loading}/>
     </FormCard>
   )
 }
