@@ -48,7 +48,7 @@ export const ResetPassword = () => {
 
   return (
     <Card>
-      <CardMain className="p-12 space-y-12">
+      <CardMain className="p-6 sm:p-12 space-y-6 sm:space-y-12">
         <h1><Heading>Passwort zurücksetzen</Heading></h1>
         <form onSubmit={handleSubmit} className="space-y-8">
           <Input type="email" id="email" label="Deine Email-Adresse" placeholder="john.doe@email.com" required={true} onBlur={validateEmail} error={emailError} ref={emailRef}/>
@@ -57,7 +57,7 @@ export const ResetPassword = () => {
           {formState.state == 'success' && <div className="mb-4"><SuccessMessage text={formState.message}/></div>}
         </form>
       </CardMain>
-      <CardBottom className="px-12 py-6">
+      <CardBottom className="p-6 sm:px-12">
         <p><ChevronLink href="/login" external={false}>Anmelden</ChevronLink></p>
       </CardBottom>
     </Card>
