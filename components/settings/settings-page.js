@@ -7,10 +7,10 @@ export const SettingsPage = ({title, children}) => {
   const settingsPages = [
     {name: 'Profil', href: '/settings/profile'},
     {name: 'Unternehmen', href: '/settings/business'},
-    //{name: 'Angebote', href: '/settings/quotes'},
-    //{name: 'Rechnungen', href: '/settings/invoices'},
-    //{name: 'Emails', href: '/settings/emails'},
-    //{name: 'Bankkonto', href: '/settings/bank'},
+    {name: 'Angebote', href: '/settings/quotes'},
+    {name: 'Rechnungen', href: '/settings/invoices'},
+    {name: 'Emails', href: '/settings/emails'},
+    {name: 'Bankkonto', href: '/settings/bank'}
   ]
 
   return (

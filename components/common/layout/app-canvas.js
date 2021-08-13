@@ -6,7 +6,7 @@ import {FooterMenu} from '@/components/common/layout/footer-menu'
 
 export const AppCanvas = ({children}) => {
   return (
-    <div className="relative sm:flex bg-gray-100">
+    <div className="relative sm:flex bg-gray-100 w-screen">
       <aside className="hidden sm:flex flex-col justify-between items-center relative w-24 md:w-32 flex-shrink-0">
         <div className="mt-24 pt-8 sticky top-0">
           <NavMenu/>
@@ -16,7 +16,7 @@ export const AppCanvas = ({children}) => {
           <SignOutButton/>
         </div>
       </aside>
-      <div className="flex-grow">
+      <div className="flex-grow overflow-auto">
         <header className="h-16 sm:h-24 w-full"></header>
         <main className="w-full p-4 py-8 sm:p-8 md:p-12 mb-16 sm:mb-0 sm:rounded-l-3xl bg-white border-t border-gray-200 space-y-16">
           {children}
