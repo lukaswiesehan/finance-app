@@ -2,6 +2,8 @@ import {useNotifications} from '@/lib/notifications'
 import {Container} from '@/components/common/container'
 import {AppCanvas} from '@/components/common/layout/app-canvas'
 import {Title} from '@/components/common/elements/title'
+import {ThemeButton} from '@/components/common/elements/theme-button'
+import {SignOutButton} from '@/components/auth/signout-button'
 
 export const DashboardPage = () => {
   const showNotification = useNotifications()
@@ -44,6 +46,10 @@ export const DashboardPage = () => {
           >
             Info-Notification
           </button>
+          <div className="mt-8 sm:hidden">
+            <ThemeButton/>
+            <SignOutButton/>
+          </div>
         </div>
       </AppCanvas>
     </Container>
