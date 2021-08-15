@@ -64,7 +64,7 @@ export const CustomersTable = ({session}) => {
         orderBy={orderBy}
         setOrderBy={setOrderBy}
         bottomSection={
-          <div className="flex justify-between">
+          <div className="flex flex-col sm:flex-row items-center sm:justify-between">
             <div></div>
             <Pagination pageCount={pageCount} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
           </div>
