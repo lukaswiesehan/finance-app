@@ -4,7 +4,7 @@ import {faSort, faSortUp, faSortDown} from '@fortawesome/pro-duotone-svg-icons'
 export const Table = ({columns, orderBy, setOrderBy, bottomSection, children}) => {
   return (
     <div className="w-full bg-gray-50 rounded-2xl border border-gray-200">
-      <div className="w-full rounded-2xl overflow-x-scroll">
+      <div className="rounded-2xl overflow-x-scroll">
         <table className="w-full">
           <thead className="bg-gray-100 border-b border-gray-200 text-gray-500">
             <tr>
@@ -43,7 +43,7 @@ export const Table = ({columns, orderBy, setOrderBy, bottomSection, children}) =
       </div>
       
       {bottomSection && 
-        <div className="p-6 bg-gray-100 border-t border-gray-200">
+        <div className="p-6 rounded-b-2xl bg-gray-100 border-t border-gray-200">
           {bottomSection}
         </div>
       }
