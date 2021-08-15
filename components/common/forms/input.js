@@ -14,9 +14,9 @@ export const Input = forwardRef(({className, type, id, label, placeholder, requi
         <label htmlFor={id} className="text-sm text-gray-600">
           {label}
         </label>
-        <input className={`w-full bg-white px-4 py-2 rounded-lg border border-gray-200
+        <input className={`w-full px-4 py-2 rounded-lg border border-gray-200
           text-gray-600 placeholder-gray-400
-          ${disabled && 'bg-gray-50'}
+          ${disabled ? 'bg-gray-50' : 'bg-white'}
           ${error && 'ring-2 ring-red-400 ring-offset-2 ring-offset-gray-50'}
           focus:outline-none focus:border-gray-200 focus:ring-2 focus:ring-gray-800 focus:ring-offset-2`}
           type={type}
@@ -26,8 +26,6 @@ export const Input = forwardRef(({className, type, id, label, placeholder, requi
           placeholder={placeholder}
           onBlur={onBlur}
           ref={ref}
-          autoComplete="off"
-          autoComplete="chrome-off"
           tabIndex="0"
           required={required}
           disabled={disabled}

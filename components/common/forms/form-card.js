@@ -8,7 +8,7 @@ import {CardBottom} from '@/components/common/layout/card-bottom'
 import {Subheading} from '@/components/common/elements/subheading'
 import {Submit} from '@/components/common/forms/submit'
 
-export const FormCard = ({heading, description, submitLabel, onSubmit, loading, collapsable, children}) => {
+export const FormCard = ({className, heading, description, submitLabel, onSubmit, loading, collapsable, children}) => {
   const [collapsed, setCollapsed] = useState(true)
 
   return (
@@ -30,7 +30,7 @@ export const FormCard = ({heading, description, submitLabel, onSubmit, loading, 
             </div>
           }
           <div hidden={collapsable && collapsed}>
-            <div className="grid grid-cols-1 lg:grid-cols-6 gap-4">
+            <div className={`grid ${className} gap-4`}>
               {children}
             </div>
           </div>

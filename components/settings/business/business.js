@@ -148,7 +148,7 @@ export const BusinessSettings = ({session}) => {
   }
 
   return (
-    <FormCard 
+    <FormCard className="grid-cols-1 lg:grid-cols-6"
       heading="Anschrift & Kontaktdaten" 
       description="Lorem ipsum dolor sit amet."
       submitLabel="Kontaktdaten speichern"

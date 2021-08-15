@@ -9,7 +9,7 @@ export const FooterMenu = () => {
   ]
 
   return (
-    <footer className="h-24 w-full px-12 flex flex-col sm:flex-row justify-center sm:justify-between items-center">
+    <footer className="h-24 w-full px-8 flex flex-col sm:flex-row justify-center sm:justify-between items-center">
       <p className="text-sm text-gray-500">&copy; Lukas Wiesehan {currentYear}</p>
       <ul className="flex space-x-4">
         {footerItems.map(({name, href}, index) => (

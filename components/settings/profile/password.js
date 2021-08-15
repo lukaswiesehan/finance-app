@@ -69,7 +69,7 @@ export const PasswordSettings = () => {
   }
 
   return (
-    <FormCard 
+    <FormCard className="grid-cols-1 lg:grid-cols-6"
       heading="Passwort" 
       description="Lorem ipsum dolor sit amet."
       submitLabel="Passwort ändern"

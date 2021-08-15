@@ -102,7 +102,7 @@ export const TaxSettings = ({session}) => {
   }
 
   return (
-    <FormCard 
+    <FormCard className="grid-cols-1 lg:grid-cols-6"
       heading="Steuerliche Informationen" 
       description="Lorem ipsum dolor sit amet."
       submitLabel="Steuerdaten speichern"

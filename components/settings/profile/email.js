@@ -79,7 +79,7 @@ export const EmailSettings = ({session}) => {
   }
 
   return (
-    <FormCard 
+    <FormCard className="grid-cols-1 lg:grid-cols-6"
       heading="Email-Adresse" 
       description="Lorem ipsum dolor sit amet."
       submitLabel="Email-Adresse speichern"

@@ -125,7 +125,7 @@ export const BankSettings = ({session}) => {
   }
 
   return (
-    <FormCard 
+    <FormCard className="grid-cols-1 lg:grid-cols-6"
       heading="Bankverbindung" 
       description="Lorem ipsum dolor sit amet."
       submitLabel="Bankdaten speichern"

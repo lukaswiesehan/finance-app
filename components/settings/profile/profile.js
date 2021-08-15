@@ -108,7 +108,7 @@ export const ProfileSettings = ({session}) => {
   }
 
   return (
-    <FormCard 
+    <FormCard className="grid-cols-1 lg:grid-cols-6"
       heading="Persönliche Informationen" 
       description="Lorem ipsum dolor sit amet."
       submitLabel="Profil speichern"
