@@ -17,7 +17,7 @@ export const AppCanvas = ({children}) => {
       </aside>
       <div className="flex-grow overflow-auto">
         <header className="h-16 sm:h-24 w-full"></header>
-        <main className="w-full p-4 py-8 sm:p-8 md:p-12 mb-16 sm:mb-0 sm:rounded-l-3xl 2xl:rounded-r-3xl bg-white border-t sm:border-b sm:border-l 2xl:border-r border-gray-200 space-y-8 sm:space-y-12 md:space-y-16">
+        <main className="w-full p-4 py-8 sm:p-8 md:p-12 mb-20 sm:mb-0 sm:rounded-l-3xl 2xl:rounded-r-3xl bg-white border-t sm:border-b sm:border-l 2xl:border-r border-gray-200 space-y-8 sm:space-y-12 md:space-y-16">
           {children}
         </main>
         <div className="hidden sm:block">

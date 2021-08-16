@@ -12,7 +12,7 @@ export const NavMenu = () => {
   ]
 
   return (
-    <nav className="w-full pt-3 pb-8 sm:w-32 sm:lex-shrink-0">
+    <nav className="w-full h-20 pb-4 sm:w-32 sm:lex-shrink-0">
       <ul className="w-full h-full flex sm:flex-col justify-center sm:justify-start items-center space-x-4 sm:space-x-0 sm:space-y-4">
         {navElements.map(({name, icon, bgClassName, href, basePath}, index) => (
           <li key={index}><NavLink name={name} href={href} icon={icon} bgClassName={bgClassName} active={router.pathname.split('/')[1] == basePath}/></li>
