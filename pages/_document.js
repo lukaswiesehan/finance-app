@@ -8,7 +8,7 @@ class MyDocument extends Document {
           <link rel="preload" href="/fonts/lato-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/>
           <link rel="preload" href="/fonts/lato-900.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/>
         </Head>  
-        <body>
+        <body style={{WebkitTapHighlightColor: 'transparent'}}>
           <Main />
           <NextScript />
         </body>
