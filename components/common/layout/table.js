@@ -9,7 +9,7 @@ export const Table = ({columns, orderBy, setOrderBy, bottomSection, children}) =
           <thead className="bg-gray-100 border-b border-gray-200 text-gray-500">
             <tr>
               {columns.map(({title, sortable, id}, index) => (
-                <th key={index} scope="col" className="p-6 text-left whitespace-nowrap">
+                <th key={index} scope="col" className="p-4 sm:p-6 text-left whitespace-nowrap">
                   {sortable ? 
                     orderBy.column == id ? 
                       orderBy.ascending ? 
@@ -42,7 +42,7 @@ export const Table = ({columns, orderBy, setOrderBy, bottomSection, children}) =
         </table>
       </div>
       {bottomSection && 
-        <div className="p-6 bg-gray-100 border-t border-gray-200">
+        <div className="p-4 sm:p-6 bg-gray-100 border-t border-gray-200">
           {bottomSection}
         </div>
       }

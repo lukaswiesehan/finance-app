@@ -1,4 +1,5 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useRef} from 'react'
+import Link from 'next/link'
 import {useSupabase} from '@/lib/supabase'
 import {useNotifications} from '@/lib/notifications'
 import {Table} from '@/components/common/layout/table'
@@ -14,14 +15,15 @@ export const CustomersTable = ({session}) => {
   const [loading, setLoading] = useState(true)
   const [customers, setCustomers] = useState([])
   const [rowCount, setRowCount] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(3)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
+  const rowsPerPageRef = useRef()
   const [pageCount, setPageCount] = useState(1)
   const [currentPage, setCurrentPage] = useState(1)
   const [orderBy, setOrderBy] = useState({column: 'customer_id', ascending: true})
   
   useEffect(() => {
     getCustomers()
-  }, [session, orderBy, currentPage])
+  }, [session, orderBy, currentPage, rowsPerPage])
 
   const getCustomers = async () => {
     try{
@@ -64,21 +66,38 @@ export const CustomersTable = ({session}) => {
         orderBy={orderBy}
         setOrderBy={setOrderBy}
         bottomSection={
-          <div className="flex flex-col sm:flex-row items-center sm:justify-between">
-            <div></div>
+          <div className="flex flex-col md:flex-row items-center md:justify-between space-y-4 md:space-y-0">
+
+            <div className="flex items-center space-x-4">
+              <div className="w-20 rounded-lg bg-gradient-to-br from-gray-50 to-true-gray-100">
+                <select className="w-full bg-transparent border border-gray-200 rounded-lg focus:outline-none focus:border focus:border-gray-200 focus:ring-2 focus:ring-gray-800 focus:ring-offset-2"
+                  name="customers-per-page" id="customers-per-page" 
+                  ref={rowsPerPageRef} 
+                  onChange={() => {setRowsPerPage(rowsPerPageRef.current.value)}}
+                >
+                  <option value="5">5</option>
+                  <option value="10" selected>10</option>
+                  <option value="15">15</option>
+                  <option value="20">20</option>
+                </select>
+              </div>
+              <label htmlFor="customers-per-page">Einträge pro Seite</label>
+            </div>
+
             <Pagination pageCount={pageCount} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+
           </div>
         }
       >
         {loading ? 
           [...Array(7)].map((e, index) => (
             <tr key={index} className="animate-pulse">
-              <td className="p-6"><div className="w-16 h-6 rounded-lg bg-gray-200"/></td>
-              <td className="p-6"><div className="w-48 h-6 rounded-lg bg-gray-200"/><div className="mt-1 w-32 h-6 rounded-lg bg-gray-200"/></td>
-              <td className="p-6"><div className="w-40 h-6 rounded-lg bg-gray-200"/><div className="mt-1 w-48 h-6 rounded-lg bg-gray-200"/></td>
-              <td className="p-6"><div className="w-32 h-6 rounded-lg bg-gray-200"/></td>
-              <td className="p-6"><div className="w-24 h-6 rounded-lg bg-gray-200"/></td>
-              <td className="p-6"><div className="w-16 h-6 rounded-lg bg-gray-200"/></td>
+              <td className="p-4 sm:p-6"><div className="w-16 h-6 rounded-lg bg-gray-200"/></td>
+              <td className="p-4 sm:p-6"><div className="w-48 h-6 rounded-lg bg-gray-200"/><div className="mt-1 w-32 h-6 rounded-lg bg-gray-200"/></td>
+              <td className="p-4 sm:p-6"><div className="w-40 h-6 rounded-lg bg-gray-200"/><div className="mt-1 w-48 h-6 rounded-lg bg-gray-200"/></td>
+              <td className="p-4 sm:p-6"><div className="w-32 h-6 rounded-lg bg-gray-200"/></td>
+              <td className="p-4 sm:p-6"><div className="w-24 h-6 rounded-lg bg-gray-200"/></td>
+              <td className="p-4 sm:p-6"><div className="w-16 h-6 rounded-lg bg-gray-200"/></td>
             </tr>
           ))
         : rowCount == 0 ?
@@ -95,12 +114,12 @@ export const CustomersTable = ({session}) => {
         :
           customers.map(({customer_id, company, contact_person, address, email, phone}, index) => (
             <tr key={index}>
-              <td className="p-6 whitespace-nowrap"><span className="px-2 py-0.5 bg-purple-300 text-indigo-800 rounded-full text-sm font-bold uppercase tracking-wider">K#{customer_id}</span></td>
-              <td className="p-6 whitespace-nowrap"><span className="text-gray-600 font-bold">{company}</span><br/>{contact_person}</td>
-              <td className="p-6 whitespace-nowrap">{address.street} {address.number}<br/>{address.postal} {address.city}</td>
-              <td className="p-6 whitespace-nowrap"><EmailLink email={email} name={contact_person}/></td>
-              <td className="p-6 whitespace-nowrap">{phone && <PhoneLink phone={phone}/>}</td>
-              <td className="p-6 whitespace-nowrap"><ChevronLink href={`/customers/${customer_id}`}>Anzeigen</ChevronLink></td>         
+              <td className="p-4 sm:p-6 whitespace-nowrap"><span className="px-2 py-0.5 bg-purple-300 text-indigo-800 rounded-full text-sm font-bold uppercase tracking-wider">K#{customer_id}</span></td>
+              <td className="p-4 sm:p-6 whitespace-nowrap"><Link href={`/customers/${customer_id}`}><a className="text-gray-600 font-bold focus:outline-none focus:underline">{company}</a></Link><br/>{contact_person}</td>
+              <td className="p-4 sm:p-6 whitespace-nowrap">{address.street} {address.number}<br/>{address.postal} {address.city}</td>
+              <td className="p-4 sm:p-6 whitespace-nowrap"><EmailLink email={email} name={contact_person}/></td>
+              <td className="p-4 sm:p-6 whitespace-nowrap">{phone && <PhoneLink phone={phone}/>}</td>
+              <td className="p-4 sm:p-6 whitespace-nowrap"><ChevronLink href={`/customers/${customer_id}`}>Anzeigen</ChevronLink></td>         
             </tr>
           ))
         }
