@@ -14,7 +14,7 @@ export const CustomersPage = () => {
   return (
     <Container>
       <AppCanvas>
-        <div className="flex justify-between items-center">
+        <div className="sm:flex sm:justify-between sm:items-center space-y-16 sm:space-y-0">
           <div className="space-y-2">
             <Title>Kunden</Title>
             <Breadcrumbs elements={[

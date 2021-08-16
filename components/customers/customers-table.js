@@ -69,7 +69,7 @@ export const CustomersTable = ({session}) => {
           <div className="flex flex-col md:flex-row items-center md:justify-between space-y-4 md:space-y-0">
 
             <div className="flex items-center space-x-4">
-              <div className="w-20 rounded-lg bg-gradient-to-br from-gray-50 to-true-gray-100">
+              <div className="w-18 rounded-lg bg-gradient-to-br from-gray-50 to-true-gray-100">
                 <select className="w-full bg-transparent border border-gray-200 rounded-lg focus:outline-none focus:border focus:border-gray-200 focus:ring-2 focus:ring-gray-800 focus:ring-offset-2"
                   name="customers-per-page" id="customers-per-page" 
                   ref={rowsPerPageRef} 
