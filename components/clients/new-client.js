@@ -12,13 +12,13 @@ import {Subheading} from '@/components/common/elements/subheading'
 import {Input} from '@/components/common/forms/input'
 import {Submit} from '@/components/common/forms/submit'
 
-export const NewCustomer = ({session}) => {
+export const NewClient = ({session}) => {
   const router = useRouter()
   const supabase = useSupabase()
   const showNotification = useNotifications()
 
   const [loading, setLoading] = useState(false)
-  const [newCustomerId, setNewCustomerId] = useState('0000')
+  const [newClientId, setNewClientId] = useState('0000')
   
   const companyRef = useRef()
   const contactPersonRef = useRef()
@@ -38,26 +38,26 @@ export const NewCustomer = ({session}) => {
   const [emailError, setEmailError] = useState(null)
 
   useEffect(() => {
-    getNewCustomerId()
+    getNewClientId()
   }, [session])
 
-  const getNewCustomerId = async () => {
+  const getNewClientId = async () => {
     try{
       setLoading(true)
       const user = supabase.auth.user()
       const {data, error, status} = await supabase
-        .from('customers')
-        .select('customer_id')
+        .from('clients')
+        .select('client_id')
         .eq('user_id', user.id)
       if(error && status !== 406) {
         throw error
       } else if(data) {
         setLoading(false)
         if(data.length === 0) {
-          setNewCustomerId(7001)
+          setNewClientId(7001)
         } else {
           const maxId = Math.max.apply(Math, data.map(c => {return c.customer_id}))
-          setNewCustomerId(maxId + 1)
+          setNewClientId(maxId + 1)
         }
       }
     } catch(error) {
@@ -84,9 +84,9 @@ export const NewCustomer = ({session}) => {
       setFormLoading(true)
       if(validateAll()) {
         const user = supabase.auth.user()
-        const {error} = await supabase.from('customers').insert({
+        const {error} = await supabase.from('clients').insert({
           user_id: user.id,
-          customer_id: newCustomerId,
+          client_id: newClientId,
           company: companyRef.current.value,
           contact_person: contactPersonRef.current.value,
           address: {
@@ -119,14 +119,14 @@ export const NewCustomer = ({session}) => {
         <div className="space-y-2">
           <Title>Neuer Kunde</Title>
           <Breadcrumbs elements={[
-            {title: 'Kunden', href: '/customers'},
-            {title: 'Neuer Kunde', href: '/customers/new'}
+            {title: 'Kunden', href: '/clients'},
+            {title: 'Neuer Kunde', href: '/clients/new'}
           ]}/>
         </div>
         <div className="sm:text-right space-y-2">
           <p className="text-4xl font-bold">
             <span className="bg-clip-text text-transparent bg-gradient-to-br from-purple-500 to-indigo-500">
-              K#{newCustomerId}
+              K#{newClientId}
             </span>
           </p>
           <h2 className="text-sm text-gray-600">Kundennummer</h2>

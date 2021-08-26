@@ -13,17 +13,17 @@ export const Table = ({columns, orderBy, setOrderBy, bottomSection, children}) =
                   {sortable ? 
                     orderBy.column == id ? 
                       orderBy.ascending ? 
-                        <button type="button" className="flex items-center space-x-2" onClick={() => {setOrderBy({column: id, ascending: false})}}>
+                        <button type="button" className="flex items-center space-x-2 transition-none focus:outline-none focus:underline" onClick={() => {setOrderBy({column: id, ascending: false})}}>
                           <span className="text-xs font-bold uppercase tracking-widest">{title}</span>
                           <FontAwesomeIcon icon={faSortUp} className="text-base"/>
                         </button>
                       : 
-                        <button type="button" className="flex items-center space-x-2" onClick={() => {setOrderBy({column: id, ascending: true})}}>
+                        <button type="button" className="flex items-center space-x-2 transition-none focus:outline-none focus:underline" onClick={() => {setOrderBy({column: id, ascending: true})}}>
                           <span className="text-xs font-bold uppercase tracking-widest">{title}</span>
                           <FontAwesomeIcon icon={faSortDown} className="text-base"/>
                         </button>
                     : 
-                      <button type="button" className="flex items-center space-x-2" onClick={() => {setOrderBy({column: id, ascending: true})}}>
+                      <button type="button" className="flex items-center space-x-2 transition-none focus:outline-none focus:underline" onClick={() => {setOrderBy({column: id, ascending: true})}}>
                         <span className="text-xs font-bold uppercase tracking-widest">{title}</span>
                         <FontAwesomeIcon icon={faSort} className="text-base"/>
                       </button>

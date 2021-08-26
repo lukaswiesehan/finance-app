@@ -6,7 +6,7 @@ import {Title} from '@/components/common/elements/title'
 import {Breadcrumbs} from '@/components/common/elements/breadcrumbs'
 import {Button} from '@/components/common/elements/button'
 import {faUserPlus} from '@fortawesome/pro-solid-svg-icons'
-import {CustomersTable} from '@/components/customers/customers-table'
+import {ClientsTable} from '@/components/clients/clients-table'
 
 export const CustomersPage = () => {
   const router = useRouter()
@@ -18,12 +18,12 @@ export const CustomersPage = () => {
           <div className="space-y-2">
             <Title>Kunden</Title>
             <Breadcrumbs elements={[
-              {title: 'Kunden', href: '/customers'}
+              {title: 'Kunden', href: '/clients'}
             ]}/>
           </div>
-          <Button icon={faUserPlus} label="Neuer Kunde" onClick={() => {router.push('/customers/new')}}/>
+          <Button icon={faUserPlus} label="Neuer Kunde" onClick={() => {router.push('/clients/new')}}/>
         </div>
-        <CustomersTable/>
+        <ClientsTable/>
       </AppCanvas>
     </Container>
   )
