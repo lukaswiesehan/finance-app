@@ -13,7 +13,7 @@ export const MyApp = ({Component, pageProps}) => {
 
   useEffect(() => {
     if(!supabase.auth.user() && !publicRoutes.includes(router.pathname)) {
-      router.push('/')
+      router.push('/login')
     }
   }, [])
 
